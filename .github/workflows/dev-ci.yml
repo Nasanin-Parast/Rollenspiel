@@ -2,7 +2,7 @@ name: Java CI on dev branch
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "dev" ]
 
 jobs:
   build:
