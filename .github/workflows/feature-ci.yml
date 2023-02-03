@@ -2,7 +2,7 @@ name: Java CI on feature branches
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "feature/**" ]
 
 jobs:
   build:
