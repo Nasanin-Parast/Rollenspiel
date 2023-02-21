@@ -26,8 +26,7 @@ public class SpielfigurTest {
         assertEquals(WEISHEIT, spielfigur.getWeisheit());
         assertEquals(GESCHICKLICHKEIT, spielfigur.getGeschicklichkeit());
         assertEquals(LEBENSPUENKTEMAX, spielfigur.getLebenspuenkteMax());
+        assertEquals(LEBENSPUENKTEMAX,spielfigur.getLebenspuenkteAktuell());
     }
-
-
 
 }

@@ -21,10 +21,7 @@ public abstract class Spielfigur {
         this.geschicklichkeit = geschicklichkeit;
         BASIS_LP = basisLP;
         berechneMaxLP();
-    }
-
-    public int getBASIS_LP() {
-        return BASIS_LP;
+        lebenspuenkteAktuell = lebenspuenkteMax;
     }
 
     public String getName() {
