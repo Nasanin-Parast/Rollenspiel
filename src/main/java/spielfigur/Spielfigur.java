@@ -22,10 +22,47 @@ public abstract class Spielfigur {
         BASIS_LP = basisLP;
         berechneMaxLP();
     }
-    private void berechneMaxLP() {
+
+    public int getBASIS_LP() {
+        return BASIS_LP;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getLebenspuenkteMax() {
+        return lebenspuenkteMax;
+    }
+
+    public int getLebenspuenkteAktuell() {
+        return lebenspuenkteAktuell;
+    }
+
+    public int getIntelligenz() {
+        return intelligenz;
+    }
+
+    public int getStaerke() {
+        return staerke;
+    }
+
+    public int getKonstitution() {
+        return konstitution;
+    }
+
+    public int getWeisheit() {
+        return weisheit;
+    }
+
+    public int getGeschicklichkeit() {
+        return geschicklichkeit;
+    }
+
+    protected void berechneMaxLP() {
         lebenspuenkteMax = BASIS_LP + modifier(konstitution);
     }
-    private int modifier(int eigenschaft) {
+    protected int modifier(int eigenschaft) {
         return (eigenschaft - MODIFICATIONVALUE) / 2;
     }
 
