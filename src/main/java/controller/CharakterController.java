@@ -3,8 +3,8 @@ package controller;
 import builder.CharakterBuilder;
 import builder.NullBuilder;
 import builder.SpielfigurFactory;
-import spielfigur.Charakter;
-import spielfigur.Rasse;
+import builder.Charakter;
+import model.Rasse;
 import util.RandomUtils;
 
 public class CharakterController {

@@ -10,7 +10,7 @@ public class FactoryTest {
     private static final String KAEMPFER = "Kaempfer";
     private static final String WRONGDATA = "irgendwas";
     CharakterBuilder charakterBuilder;
-    Factory factory;
+    SpielfigurFactory factory;
 
     @DisplayName("Should successfuly create thief")
     @Test

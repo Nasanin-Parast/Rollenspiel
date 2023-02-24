@@ -1,6 +1,6 @@
 package builder;
 
-import spielfigur.Charakter;
+import builder.Charakter;
 
 public class NullBuilder extends CharakterBuilder {
 
