@@ -1,4 +1,4 @@
-package spielfigur;
+package model;
 
 public enum Rasse {
     Zwerg(0, 2, 2, 1, 0),

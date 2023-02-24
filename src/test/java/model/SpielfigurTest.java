@@ -1,7 +1,10 @@
+package model;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Answers;
 import org.mockito.Mockito;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SpielfigurTest {

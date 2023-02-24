@@ -1,6 +1,6 @@
-package spielfigur;
+package model;
 
-import spielfigur.Charakter;
+import builder.Charakter;
 
 public class Magier extends Charakter {
     public Magier(String name, int intelligenz, int staerke, int konstitution, int weisheit, int geschicklichkeit) {

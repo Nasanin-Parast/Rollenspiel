@@ -1,7 +1,6 @@
 package builder;
 
-import spielfigur.Charakter;
-import spielfigur.Rasse;
+import model.Rasse;
 
 public abstract class CharakterBuilder {
     protected String name;

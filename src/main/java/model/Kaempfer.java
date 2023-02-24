@@ -1,4 +1,6 @@
-package spielfigur;
+package model;
+
+import builder.Charakter;
 
 public class Kaempfer extends Charakter {
     public Kaempfer(String name, int intelligenz, int staerke, int konstitution, int weisheit, int geschicklichkeit) {

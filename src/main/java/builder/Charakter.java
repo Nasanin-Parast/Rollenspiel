@@ -1,4 +1,6 @@
-package spielfigur;
+package builder;
+
+import model.Spielfigur;
 
 public abstract class Charakter extends Spielfigur {
     public Charakter(String name, int intelligenz, int staerke, int konstitution, int weisheit, int geschicklichkeit, int basisLP) {

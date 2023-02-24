@@ -2,7 +2,7 @@ package builder;
 
 public class Factory {
 
-    public CharakterBuilder createCharakter(String typ){
+    public static CharakterBuilder createCharakter(String typ){
         switch(typ) {
             case "Dieb":
                 return new DiebBuilder();
@@ -11,8 +11,8 @@ public class Factory {
             case "Magier":
                 return new MagierBuilder();
             default:
+                throw new IllegalArgumentException();
         }
-        return null;
     }
 
 }

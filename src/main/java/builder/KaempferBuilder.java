@@ -1,7 +1,6 @@
 package builder;
 
-import spielfigur.Charakter;
-import spielfigur.Kaempfer;
+import model.Kaempfer;
 
 public class KaempferBuilder extends CharakterBuilder {
     @Override

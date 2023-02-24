@@ -1,4 +1,4 @@
-package spielfigur;
+package model;
 
 public abstract class Spielfigur {
     private static final int MODIFICATIONVALUE = 10;

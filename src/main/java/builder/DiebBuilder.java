@@ -1,7 +1,6 @@
 package builder;
 
-import spielfigur.Charakter;
-import spielfigur.Dieb;
+import model.Dieb;
 
 public class DiebBuilder extends CharakterBuilder {
 

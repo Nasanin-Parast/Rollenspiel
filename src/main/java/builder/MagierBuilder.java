@@ -1,6 +1,5 @@
 package builder;
-import spielfigur.Charakter;
-import spielfigur.Magier;
+import model.Magier;
 
 public class MagierBuilder extends CharakterBuilder {
     @Override
