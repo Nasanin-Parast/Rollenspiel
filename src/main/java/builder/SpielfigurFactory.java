@@ -1,6 +1,6 @@
 package builder;
 
-public class Factory {
+public class SpielfigurFactory {
 
     public static CharakterBuilder createCharakter(String typ){
         switch(typ) {
