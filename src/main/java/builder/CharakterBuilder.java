@@ -1,14 +1,16 @@
 package builder;
 
 import spielfigur.Charakter;
+import spielfigur.Rasse;
 
 public abstract class CharakterBuilder {
+    protected String name;
     protected int intelligenz;
     protected int staerke;
-    protected String name;
+    protected int konstitution;
     protected int weisheit;
     protected int geschicklichkeit;
-    protected int konstitution;
+    protected Rasse rasse;
 
     public CharakterBuilder() {
     }
@@ -27,6 +29,10 @@ public abstract class CharakterBuilder {
         this.staerke = staerke;
         return this;
     }
+    public CharakterBuilder withKonstitution(int konstitution){
+        this.konstitution=konstitution;
+        return this;
+    }
 
     public CharakterBuilder withWeisheit(int weisheit) {
         this.weisheit = weisheit;
@@ -37,11 +43,25 @@ public abstract class CharakterBuilder {
         this.geschicklichkeit = geschicklichkeit;
         return this;
     }
-    public CharakterBuilder withKonstitution(int kostitution){
-        this.konstitution=konstitution;
+
+    public CharakterBuilder withRasse(Rasse rasse) {
+        this.rasse = rasse;
         return this;
     }
 
-    public abstract Charakter build();
+    public final Charakter build() {
+        addRassenBoni();
+        return createCharakter();
+    }
+
+    private void addRassenBoni() {
+        this.intelligenz += this.rasse.getIntBonus();
+        this.staerke += this.rasse.getStrBonus();
+        this.konstitution += this.rasse.getKonBonus();
+        this.weisheit += this.rasse.getWisBonus();
+        this.geschicklichkeit += this.rasse.getGesBonus();
+    }
+
+    protected abstract Charakter createCharakter();
 
 }

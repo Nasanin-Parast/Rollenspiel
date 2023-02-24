@@ -6,7 +6,7 @@ import spielfigur.Dieb;
 public class DiebBuilder extends CharakterBuilder {
 
     @Override
-    public Charakter build() {
-        return new Dieb(name,intelligenz,staerke,konstitution,weisheit,geschicklichkeit);
+    public Charakter createCharakter() {
+        return new Dieb(name, intelligenz, staerke, konstitution, weisheit, geschicklichkeit);
     }
 }

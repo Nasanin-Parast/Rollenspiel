@@ -5,7 +5,7 @@ import spielfigur.Kaempfer;
 
 public class KaempferBuilder extends CharakterBuilder {
     @Override
-    public Charakter build() {
-        return new Kaempfer(name,intelligenz,staerke,konstitution,weisheit,geschicklichkeit);
+    public Charakter createCharakter() {
+        return new Kaempfer(name, intelligenz, staerke, konstitution, weisheit, geschicklichkeit);
     }
 }

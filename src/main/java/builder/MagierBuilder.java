@@ -4,7 +4,7 @@ import spielfigur.Magier;
 
 public class MagierBuilder extends CharakterBuilder {
     @Override
-    public Charakter build() {
-        return new Magier(name,intelligenz,staerke,konstitution,weisheit,geschicklichkeit);
+    public Charakter createCharakter() {
+        return new Magier(name, intelligenz, staerke, konstitution, weisheit, geschicklichkeit);
     }
 }
