@@ -1,3 +1,5 @@
+package spielfigur;
+
 public abstract class Spielfigur {
     private static final int MODIFICATIONVALUE = 10;
     private final int BASIS_LP;
