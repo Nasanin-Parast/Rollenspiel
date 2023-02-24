@@ -1,8 +1,8 @@
 package builder;
 
-public class Factory {
+public class SpielfigurFactory {
 
-    public CharakterBuilder createCharakter(String typ){
+    public static CharakterBuilder createCharakter(String typ){
         switch(typ) {
             case "Dieb":
                 return new DiebBuilder();
