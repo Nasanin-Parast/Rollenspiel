@@ -1,3 +1,5 @@
+package spielfigur;
+
 public abstract class Spielfigur {
     private static final int MODIFICATIONVALUE = 10;
     private final int BASIS_LP;
@@ -12,14 +14,28 @@ public abstract class Spielfigur {
 
     public Spielfigur(String name, int intelligenz, int staerke, int konstitution, int weisheit, int geschicklichkeit, int basisLP) {
         this.name=name;
+        pruefeEigenschaftswert(intelligenz);
         this.intelligenz = intelligenz;
+        pruefeEigenschaftswert(staerke);
         this.staerke = staerke;
+        pruefeEigenschaftswert(konstitution);
         this.konstitution = konstitution;
+        pruefeEigenschaftswert(weisheit);
         this.weisheit = weisheit;
+        pruefeEigenschaftswert(geschicklichkeit);
         this.geschicklichkeit = geschicklichkeit;
         BASIS_LP = basisLP;
         berechneMaxLP();
         lebenspuenkteAktuell = lebenspuenkteMax;
+    }
+
+    private void pruefeEigenschaftswert(int eigenschaft) {
+        if (eigenschaft < 3) {
+            throw new IllegalArgumentException("Der Wert für die Charaktereigenschaft ist zu gering");
+        }
+        if (eigenschaft > 20) {
+            throw new IllegalArgumentException("Der Wert für die Charaktereigenschaft ist zu hoch");
+        }
     }
 
     public String getName() {

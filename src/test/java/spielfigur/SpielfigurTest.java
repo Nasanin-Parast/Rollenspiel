@@ -1,3 +1,5 @@
+package spielfigur;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Answers;
@@ -9,7 +11,7 @@ public class SpielfigurTest {
     private static final int INTELLIGENZ = 5;
     private static final int STAERKE = 4;
     private static final int KONSTITUTION = 12;
-    private static final int WEISHEIT = 1;
+    private static final int WEISHEIT = 11;
     private static final int GESCHICKLICHKEIT = 8;
     private static final int LEBENSPUENKTEMAX = 7;
     private static final int BASIS_LP = 6;
