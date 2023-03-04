@@ -12,7 +12,7 @@ public abstract class Spielfigur {
     private int weisheit;
     private int geschicklichkeit;
 
-    public Spielfigur(String name, int intelligenz, int staerke, int konstitution, int weisheit, int geschicklichkeit, int basisLP) {
+    protected Spielfigur(String name, int intelligenz, int staerke, int konstitution, int weisheit, int geschicklichkeit, int basisLP) {
         this.name=name;
         checkCharakterEigenschaft(intelligenz);
         this.intelligenz = intelligenz;

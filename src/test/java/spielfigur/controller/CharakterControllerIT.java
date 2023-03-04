@@ -13,13 +13,13 @@ import spielfigur.model.Magier;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Tag("IntegrationTest")
-public class CharakterControllerIT {
+class CharakterControllerIT {
 
     private static final String DIEB = "Dieb";
     private static final String KAEMPFER = "Kaempfer";
     private static final String MAGIER = "Magier";
     private static final String NAME = "FreshD";
-    private static final Rasse RASSE = Rasse.Zwerg;
+    private static final Rasse RASSE = Rasse.ZWERG;
 
     private CharakterController controller;
 

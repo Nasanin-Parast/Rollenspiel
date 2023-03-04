@@ -2,6 +2,7 @@ package oberflaeche;
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -10,12 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -33,9 +31,6 @@ public class View extends Application {
     private State state = State.DELETERASTER;
     private GridPane largeGrid = new GridPane();
     private ArrayList<Knoten> list = new ArrayList<Knoten>();
-    private AnimationTimer animationTimer;
-    private double time = 0;
-    private boolean stop = false;
     private Text sideText;
         private enum State {
             DELETERASTER, PLAZIEREGEGENSTAENDE, PLATZIEREMONSTER, WANDPLATZIEREN, WANDLOESCHEN;
@@ -47,7 +42,30 @@ public class View extends Application {
             final int hoehe = 1080;
             for (int r = 0; r < controller.getRowSize(); r++) {
                 for (int c = 0; c < controller.getColumnSize(); c++) {
-                    largeGrid.add(new Tile(Color.WHITE, r, c), r, c);
+                    Tile tile = new Tile(Color.WHITE, r, c);
+                    largeGrid.add(tile, r, c);
+                    tile.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            switch(state) {
+                                case PLATZIEREMONSTER:
+                                    tile.setColor(Color.RED);
+                                    break;
+                                case WANDLOESCHEN:
+                                    tile.setColor(Color.WHITE);
+                                    break;
+                                case WANDPLATZIEREN:
+                                    tile.setColor(Color.GREY);
+                                    break;
+                                case PLAZIEREGEGENSTAENDE:
+                                    tile.setColor(Color.YELLOW);
+                                    break;
+                                default:
+                                    tile.setColor(Color.BLACK);
+                            }
+                            mouseEvent.consume();
+                        }
+                    });
                 }
             }
             largeGrid.setAlignment(Pos.CENTER);
@@ -58,12 +76,16 @@ public class View extends Application {
             deleteRaster.setId("deleteRaster");
             ToolButton placeStartingNode = new ToolButton("Place Gegenstände ");
             placeStartingNode.setId("placeStarting");
+            placeStartingNode.setOnMouseClicked(event -> state = State.PLAZIEREGEGENSTAENDE);
             ToolButton placeEndingNode = new ToolButton("Place Monster ");
             placeEndingNode.setId("placeEnding");
+            placeEndingNode.setOnMouseClicked(event -> state = State.PLATZIEREMONSTER);
             ToolButton wandPlatzieren = new ToolButton("Wand platzieren");
             wandPlatzieren.setId("wandPlatzieren");
+            wandPlatzieren.setOnMouseClicked(event -> state = State.WANDPLATZIEREN);
             ToolButton wandLoeschen = new ToolButton("Wand löschen");
             wandLoeschen.setId("wandLoeschen");
+            wandLoeschen.setOnMouseClicked(event -> state = State.WANDLOESCHEN);
             buttonArray[0] = deleteRaster;
             buttonArray[1] = placeStartingNode;
             buttonArray[2] = placeEndingNode;
@@ -71,7 +93,7 @@ public class View extends Application {
             buttonArray[4] = wandLoeschen;
 
             buttons.getChildren().addAll(deleteRaster, placeStartingNode, placeEndingNode, wandPlatzieren, wandLoeschen);
-            sideText = new Text();
+            sideText = new Text("Hallo");
             sideText.setFont(new Font(32));
             sideText.prefWidth(100);
             VBox bottom = new VBox();
@@ -168,8 +190,6 @@ public class View extends Application {
                 });
 
                 this.setOnMouseReleased(event -> {
-                    if (animationTimer != null)
-                        animationTimer.stop();
                     setButtonStates(this);
                     switch (state) {
                         case DELETERASTER:
@@ -234,6 +254,11 @@ public class View extends Application {
                 setOnMouseReleased(event -> {
                     drawTile();
                 });
+            }
+
+            public void setColor(Color color) {
+                this.color = color;
+                border.setFill(this.color);
             }
 
             private void drawTile() {
