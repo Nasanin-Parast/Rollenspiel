@@ -4,9 +4,10 @@ import java.util.*;
 
 public class RandomUtils {
 
+    private static Random random = new Random();
+
     public static int[] getCharakterWerte() {
         int[] werte = new int[5];
-        Random random = new Random();
         for (int i = 0; i < 5; i++) {
             werte[i] = random.nextInt(16) + 3;
         }

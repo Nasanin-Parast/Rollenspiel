@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 @Tag("UnitTest")
-public class DiebBuilderTest {
+class DiebBuilderTest {
 
     private static final String NAME = "Dieb";
     private static final int INTELLIGENZ = 9;
@@ -15,7 +15,7 @@ public class DiebBuilderTest {
     private static final int KONSTITUTION = 8;
     private static final int WEISHEIT = 4;
     private static final int GESCHICKLICHKEIT = 5;
-    private static final Rasse RASSE = Rasse.Mensch;
+    private static final Rasse RASSE = Rasse.MENSCH;
 
     @Test
     void createDiebWithBuilder() {

@@ -1,10 +1,10 @@
 package spielfigur.builder;
 
 public enum Rasse {
-    Zwerg(0, 2, 2, 1, 0),
-    Mensch(1, 1, 1, 1, 1),
-    Elf(2, 0, 0, 1, 2),
-    Hobbit(0, 0, 1, 2, 2);
+    ZWERG(0, 2, 2, 1, 0),
+    MENSCH(1, 1, 1, 1, 1),
+    ELF(2, 0, 0, 1, 2),
+    HOBBIT(0, 0, 1, 2, 2);
 
     final int[] boni = new int[5];
 

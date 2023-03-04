@@ -8,7 +8,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Tag("UnitTest")
-public class RandomUtilsTest {
+class RandomUtilsTest {
 
     @Test
     void testValues() {

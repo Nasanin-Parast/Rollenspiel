@@ -1,4 +1,4 @@
-module util{
+module util {
     requires model;
     export com.module.util;
 }

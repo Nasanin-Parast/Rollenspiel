@@ -8,11 +8,6 @@
 	-fx-background-radius: 30;
 }
 
-.root{
-	-fx-background-color: light green;
-}
-
-
 .runnableToolButton{
 	-fx-background-color: linear-gradient(#f9f99a, #f5f261);
 }

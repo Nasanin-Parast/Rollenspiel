@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Tag("UnitTest")
-public class CharakterTest {
+class CharakterTest {
     private static final String NAME = "Bob";
     private static final int INTELLIGENZ = 5;
     private static final int STAERKE = 4;
