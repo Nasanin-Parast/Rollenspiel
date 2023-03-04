@@ -19,22 +19,6 @@ public class Fenster {
         }
     }
 
-    public boolean isReadyToSearch() {
-        if (sourceStartRow != -1 && sourceStartColumn != -1 && sinkEndRow != -1 && sinkEndColumn != -1) {
-            return true;
-        }
-        return false;
-    }
-
-
-    public void wandPlatzieren(int r, int c) {
-        graph[r][c] = new Knoten(r, c, true);
-    }
-
-    public void wandLoeschen(int r, int c) {
-        graph[r][c] = new Knoten(r, c);
-    }
-
     public boolean checkEdge(int r, int c) {
         if (r >= rows || c >= columns || r < 0 || c < 0)
             return false;
@@ -48,30 +32,6 @@ public class Fenster {
     public void safeAddEdge(int r, int c, int x, int y) {
         if (checkEdge(x, y)) {
             graph[r][c].addEdge(graph[x][y]);
-        }
-    }
-
-    public void generateEdges() {
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < columns; c++) {
-                if (!graph[r][c].isRock) {
-                    safeAddEdge(r, c, r + 1, c);
-                    safeAddEdge(r, c, r, c + 1);
-                    safeAddEdge(r, c, r - 1, c);
-                    safeAddEdge(r, c, r, c - 1);
-
-                }
-            }
-        }
-    }
-
-    public void clearEdges() {
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < columns; c++) {
-                if (graph[r][c] != null) {
-                    graph[r][c].clearEdges();
-                }
-            }
         }
     }
 
@@ -92,22 +52,6 @@ public class Fenster {
 
         sourceStartRow = r;
         sourceStartColumn = c;
-    }
-
-    public int getSourceXCordinate() {
-        return sourceStartRow;
-    }
-
-    public int getSourceYCordinate() {
-        return sourceStartColumn;
-    }
-
-    public int getSinkXCordinate() {
-        return sinkEndRow;
-    }
-
-    public int getSinkYCordinate() {
-        return sinkEndColumn;
     }
 
 

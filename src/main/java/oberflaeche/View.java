@@ -49,16 +49,22 @@ public class View extends Application {
                         public void handle(MouseEvent mouseEvent) {
                             switch(state) {
                                 case PLATZIEREMONSTER:
-                                    tile.setColor(Color.RED);
+                                    if (tile.getColor() == Color.WHITE) {
+                                        tile.setColor(Color.RED);
+                                    }
                                     break;
                                 case WANDLOESCHEN:
-                                    tile.setColor(Color.WHITE);
+                                    if (tile.getColor() == Color.GREY) {
+                                        tile.setColor(Color.WHITE);
+                                    }
                                     break;
                                 case WANDPLATZIEREN:
                                     tile.setColor(Color.GREY);
                                     break;
                                 case PLAZIEREGEGENSTAENDE:
-                                    tile.setColor(Color.YELLOW);
+                                    if (tile.getColor() == Color.WHITE) {
+                                        tile.setColor(Color.YELLOW);
+                                    }
                                     break;
                                 default:
                                     tile.setColor(Color.BLACK);
@@ -74,25 +80,25 @@ public class View extends Application {
             // CSS and Buttons
             ToolButton deleteRaster = new ToolButton("Clear Raster");
             deleteRaster.setId("deleteRaster");
-            ToolButton placeStartingNode = new ToolButton("Place Gegenstände ");
-            placeStartingNode.setId("placeStarting");
-            placeStartingNode.setOnMouseClicked(event -> state = State.PLAZIEREGEGENSTAENDE);
-            ToolButton placeEndingNode = new ToolButton("Place Monster ");
-            placeEndingNode.setId("placeEnding");
-            placeEndingNode.setOnMouseClicked(event -> state = State.PLATZIEREMONSTER);
-            ToolButton wandPlatzieren = new ToolButton("Wand platzieren");
-            wandPlatzieren.setId("wandPlatzieren");
-            wandPlatzieren.setOnMouseClicked(event -> state = State.WANDPLATZIEREN);
-            ToolButton wandLoeschen = new ToolButton("Wand löschen");
-            wandLoeschen.setId("wandLoeschen");
-            wandLoeschen.setOnMouseClicked(event -> state = State.WANDLOESCHEN);
+            ToolButton gegenstandPlatzierenButton = new ToolButton("Place Gegenstände ");
+            gegenstandPlatzierenButton.setId("placeStarting");
+            gegenstandPlatzierenButton.setOnMouseClicked(event -> state = State.PLAZIEREGEGENSTAENDE);
+            ToolButton monsterPlatzierenButton = new ToolButton("Place Monster ");
+            monsterPlatzierenButton.setId("placeEnding");
+            monsterPlatzierenButton.setOnMouseClicked(event -> state = State.PLATZIEREMONSTER);
+            ToolButton wandPlatzierenButton = new ToolButton("Wand platzieren");
+            wandPlatzierenButton.setId("wandPlatzieren");
+            wandPlatzierenButton.setOnMouseClicked(event -> state = State.WANDPLATZIEREN);
+            ToolButton wandLoeschenButton = new ToolButton("Wand löschen");
+            wandLoeschenButton.setId("wandLoeschen");
+            wandLoeschenButton.setOnMouseClicked(event -> state = State.WANDLOESCHEN);
             buttonArray[0] = deleteRaster;
-            buttonArray[1] = placeStartingNode;
-            buttonArray[2] = placeEndingNode;
-            buttonArray[3] = wandPlatzieren;
-            buttonArray[4] = wandLoeschen;
+            buttonArray[1] = gegenstandPlatzierenButton;
+            buttonArray[2] = monsterPlatzierenButton;
+            buttonArray[3] = wandPlatzierenButton;
+            buttonArray[4] = wandLoeschenButton;
 
-            buttons.getChildren().addAll(deleteRaster, placeStartingNode, placeEndingNode, wandPlatzieren, wandLoeschen);
+            buttons.getChildren().addAll(deleteRaster, gegenstandPlatzierenButton, monsterPlatzierenButton, wandPlatzierenButton, wandLoeschenButton);
             sideText = new Text("Hallo");
             sideText.setFont(new Font(32));
             sideText.prefWidth(100);
@@ -171,7 +177,7 @@ public class View extends Application {
 
         public class ToolButton extends Button {
             public ToolButton(String text) {
-                this.getStyleClass().add("toolButton");
+//                this.getStyleClass().add("toolButton");
                 this.setText(text);
 
                 this.setOnMouseEntered(event -> {
@@ -227,33 +233,33 @@ public class View extends Application {
         public class Tile extends StackPane {
             Rectangle border = new Rectangle(45, 45);
             Color color;
-            int r;
-            int c;
+//            int r;
+//            int c;
 
             public Tile(Color color, int r, int c) {
-                this.r = r;
-                this.c = c;
+//                this.r = r;
+//                this.c = c;
                 this.color = color;
                 border.setFill(color);
                 border.setStroke(Color.BLACK);
                 this.getChildren().add(border);
 
-                this.setOnMouseEntered(event -> {
-                    tempCursor = scene.getCursor();
-                    scene.setCursor(Cursor.CROSSHAIR);
-                    if (event.isShiftDown()) {
-                        drawTile();
-                    }
+//                this.setOnMouseEntered(event -> {
+//                    tempCursor = scene.getCursor();
+//                    scene.setCursor(Cursor.CROSSHAIR);
+//                    if (event.isShiftDown()) {
+//                        drawTile();
+//                    }
+//
+//                });
 
-                });
-
-                this.setOnMouseExited(event -> {
-                    scene.setCursor(tempCursor);
-                });
-
-                setOnMouseReleased(event -> {
-                    drawTile();
-                });
+//                this.setOnMouseExited(event -> {
+//                    scene.setCursor(tempCursor);
+//                });
+//
+//                setOnMouseReleased(event -> {
+//                    drawTile();
+//                });
             }
 
             public void setColor(Color color) {
@@ -261,69 +267,73 @@ public class View extends Application {
                 border.setFill(this.color);
             }
 
-            private void drawTile() {
-                switch (state) {
-                    case PLATZIEREMONSTER:
-                        for (Node tile : largeGrid.getChildren()) {
-                            if (((Tile) tile).color == Color.RED) {
-                                ((Tile) tile).color = Color.WHITE;
-                                ((Tile) tile).border.setFill(Color.WHITE);
-                            }
-                        }
-
-                        if (c == controller.getSourceXCordinate() && r == controller.getSourceYCordinate()) {
-                            controller.setSourceCordinates(-1, -1);
-                        }
-
-                        this.color = Color.RED;
-                        border.setFill(this.color);
-                        controller.setSinkCordinates(c, r);
-                        break;
-
-                    case PLAZIEREGEGENSTAENDE:
-                        for (Node tile : largeGrid.getChildren()) {
-
-                            if (((Tile) tile).color.equals(Color.LIME)) {
-                                ((Tile) tile).color = Color.WHITE;
-                                ((Tile) tile).border.setFill(Color.WHITE);
-                            }
-                        }
-
-                        if (c == controller.getSinkXCordinate() && r == controller.getSinkYCordinate()) {
-                            controller.setSinkCordinates(-1, -1);
-                        }
-
-                        this.color = Color.LIME;
-                        border.setFill(this.color);
-                        controller.setSourceCordinates(c, r);
-
-                        break;
-
-                    case WANDPLATZIEREN:
-                        if (c == controller.getSinkXCordinate() && r == controller.getSinkYCordinate()) {
-                            controller.setSinkCordinates(-1, -1);
-                        } else if (c == controller.getSourceXCordinate() && r == controller.getSourceYCordinate()) {
-                            controller.setSourceCordinates(-1, -1);
-                        }
-                        this.color = Color.GRAY;
-                        border.setFill(this.color);
-                        controller.wandPlatzieren(c, r);
-
-                        break;
-
-                    case WANDLOESCHEN:
-                        if (color == Color.GRAY) {
-                            this.color = Color.WHITE;
-                            border.setFill(this.color);
-                            controller.wandLoeschen(c, r);
-                        }
-                        break;
-                    default:
-                        break;
-
-                }
-
+            public Color getColor() {
+                return color;
             }
+
+//            private void drawTile() {
+//                switch (state) {
+//                    case PLATZIEREMONSTER:
+//                        for (Node tile : largeGrid.getChildren()) {
+//                            if (((Tile) tile).color == Color.RED) {
+//                                ((Tile) tile).color = Color.WHITE;
+//                                ((Tile) tile).border.setFill(Color.WHITE);
+//                            }
+//                        }
+//
+//                        if (c == controller.getSourceXCordinate() && r == controller.getSourceYCordinate()) {
+//                            controller.setSourceCordinates(-1, -1);
+//                        }
+//
+//                        this.color = Color.RED;
+//                        border.setFill(this.color);
+//                        controller.setSinkCordinates(c, r);
+//                        break;
+//
+//                    case PLAZIEREGEGENSTAENDE:
+//                        for (Node tile : largeGrid.getChildren()) {
+//
+//                            if (((Tile) tile).color.equals(Color.LIME)) {
+//                                ((Tile) tile).color = Color.WHITE;
+//                                ((Tile) tile).border.setFill(Color.WHITE);
+//                            }
+//                        }
+//
+//                        if (c == controller.getSinkXCordinate() && r == controller.getSinkYCordinate()) {
+//                            controller.setSinkCordinates(-1, -1);
+//                        }
+//
+//                        this.color = Color.LIME;
+//                        border.setFill(this.color);
+//                        controller.setSourceCordinates(c, r);
+//
+//                        break;
+//
+//                    case WANDPLATZIEREN:
+//                        if (c == controller.getSinkXCordinate() && r == controller.getSinkYCordinate()) {
+//                            controller.setSinkCordinates(-1, -1);
+//                        } else if (c == controller.getSourceXCordinate() && r == controller.getSourceYCordinate()) {
+//                            controller.setSourceCordinates(-1, -1);
+//                        }
+//                        this.color = Color.GRAY;
+//                        border.setFill(this.color);
+//                        controller.wandPlatzieren(c, r);
+//
+//                        break;
+//
+//                    case WANDLOESCHEN:
+//                        if (color == Color.GRAY) {
+//                            this.color = Color.WHITE;
+//                            border.setFill(this.color);
+//                            controller.wandLoeschen(c, r);
+//                        }
+//                        break;
+//                    default:
+//                        break;
+//
+//                }
+//
+//            }
         }
 
     }
