@@ -8,10 +8,10 @@ import spielfigur.exception.MissingAttributeException;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Tag("UnitTest")
-public class NullBuilderTest {
+class NullBuilderTest {
 
     private static final String NAME = "Charakter";
-    private static final Rasse RASSE = Rasse.Zwerg;
+    private static final Rasse RASSE = Rasse.ZWERG;
     private CharakterBuilder builder;
 
     @BeforeEach

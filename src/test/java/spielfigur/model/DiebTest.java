@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Tag("UnitTest")
-public class DiebTest {
+class DiebTest {
 
     private static final String NAME = "Dreckiger Dan";
     private static final int EIG_NORMAL = 10;
