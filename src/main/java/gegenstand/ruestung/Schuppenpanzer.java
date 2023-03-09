@@ -1,4 +1,6 @@
-package gegenstand;
+package gegenstand.ruestung;
+
+import gegenstand.ruestung.Ruestung;
 
 public class Schuppenpanzer extends Ruestung {
 

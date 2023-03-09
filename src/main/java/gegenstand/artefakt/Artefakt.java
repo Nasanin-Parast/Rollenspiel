@@ -4,15 +4,19 @@ import gegenstand.Gegenstand;
 
 public abstract class Artefakt extends Gegenstand {
 
-    private String fromDerAnwendung;
+    String formDerAnwendung;
 
-    public Artefakt(String fromDerAnwendung){
+    protected Artefakt(String formDerAnwendung){
 
     }
+    @Override
+    public void interagiereMitGegenstand() {    }
 
-    public abstract int Auswirkung();
+    public int Auswirkung() {
+        return 0;
+    }
 
-    public String getFromDerAnwendung() {return fromDerAnwendung;}
+    public String getFormDerAnwendung() {return formDerAnwendung;}
 
-    public void setFromDerAnwendung(String formDerAnwendung){this.fromDerAnwendung = formDerAnwendung;}
+    public void setFormDerAnwendung(String formDerAnwendung){this.formDerAnwendung = formDerAnwendung;}
 }

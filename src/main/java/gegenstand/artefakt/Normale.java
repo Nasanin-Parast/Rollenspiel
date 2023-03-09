@@ -1,10 +1,10 @@
-package gegenstand;
+package gegenstand.artefakt;
 
 import gegenstand.artefakt.Artefakt;
 
-public class Trank extends Artefakt {
+public class Normale extends Artefakt {
 
-    public Trank(String fromDerAnwendung) {
+    public Normale(String fromDerAnwendung) {
         super(fromDerAnwendung);
     }
 

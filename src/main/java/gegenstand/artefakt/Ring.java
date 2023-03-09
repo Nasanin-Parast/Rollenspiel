@@ -1,8 +1,10 @@
 package gegenstand.artefakt;
 
-public class Amulett extends MagischerGegenstand {
+import gegenstand.artefakt.MagischerGegenstand;
 
-    public Amulett(String fromDerAnwendung) {
+public class Ring extends MagischerGegenstand {
+
+    public Ring(String fromDerAnwendung) {
         super(fromDerAnwendung);
     }
 
@@ -11,4 +13,3 @@ public class Amulett extends MagischerGegenstand {
         return 0;
     }
 }
-

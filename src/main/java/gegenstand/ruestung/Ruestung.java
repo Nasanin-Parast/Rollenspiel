@@ -1,4 +1,6 @@
-package gegenstand;
+package gegenstand.ruestung;
+
+import gegenstand.Gegenstand;
 
 public abstract class Ruestung extends Gegenstand {
 
@@ -26,4 +28,9 @@ public abstract class Ruestung extends Gegenstand {
     public void setPreis(double preis) {this.preis = preis;}
 
     public void setGewichtInPfund(double gewichtInPfund) {this.gewichtInPfund = gewichtInPfund;}
+
+    @Override
+    public void interagiereMitGegenstand() {
+
+    }
 }

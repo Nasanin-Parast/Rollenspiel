@@ -1,4 +1,6 @@
-package gegenstand;
+package gegenstand.waffe;
+
+import gegenstand.Gegenstand;
 
 public abstract class Waffe extends Gegenstand {
 
@@ -34,5 +36,10 @@ public abstract class Waffe extends Gegenstand {
 
     public void setEinsetzbarBisSpielfeld(int einsetzbarBisSpielfeld) {
         this.einsetzbarBisSpielfeld = einsetzbarBisSpielfeld;
+    }
+
+    @Override
+    public void interagiereMitGegenstand() {
+
     }
 }

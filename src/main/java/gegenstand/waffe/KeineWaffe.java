@@ -1,4 +1,4 @@
-package gegenstand;
+package gegenstand.waffe;
 
 public class KeineWaffe extends Waffe {
 

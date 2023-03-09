@@ -1,4 +1,4 @@
-package gegenstand;
+package gegenstand.ruestung;
 
 public class Kettenpanzer extends Ruestung {
 
