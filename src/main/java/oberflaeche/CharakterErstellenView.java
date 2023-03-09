@@ -136,9 +136,18 @@ public class CharakterErstellenView {
     }
 
     private void addKlassenauswahlEventHandler() {
-        diebButton.setOnMouseClicked(event -> controller.setCharakterKlasse("Dieb"));
-        kaempferButton.setOnMouseClicked(event -> controller.setCharakterKlasse("Kaempfer"));
-        magierButton.setOnMouseClicked(event -> controller.setCharakterKlasse("Magier"));
+        diebButton.setOnMouseClicked(event -> {
+            controller.setCharakterKlasse("Dieb");
+            klasseView.setImage(diebImage);
+        });
+        kaempferButton.setOnMouseClicked(event -> {
+            controller.setCharakterKlasse("Kaempfer");
+            klasseView.setImage(kaempferImage);
+        });
+        magierButton.setOnMouseClicked(event -> {
+            controller.setCharakterKlasse("Magier");
+            klasseView.setImage(magierImage);
+        });
     }
 
     private void createEigenschaftenauswahl() {
