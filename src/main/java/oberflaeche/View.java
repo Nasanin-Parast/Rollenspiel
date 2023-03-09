@@ -1,19 +1,17 @@
 package oberflaeche;
 import java.util.ArrayList;
-import javafx.animation.AnimationTimer;
+import java.util.Arrays;
+
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -33,7 +31,7 @@ public class View extends Application {
     private ArrayList<Knoten> list = new ArrayList<Knoten>();
     private Text sideText;
         private enum State {
-            DELETERASTER, PLAZIEREGEGENSTAENDE, PLATZIEREMONSTER, WANDPLATZIEREN, WANDLOESCHEN;
+            DELETERASTER, PLAZIEREGEGENSTAENDE, PLATZIEREMONSTER, WANDPLATZIEREN, TILELOESCHEN;
         }
 
         @Override
@@ -49,25 +47,19 @@ public class View extends Application {
                         public void handle(MouseEvent mouseEvent) {
                             switch(state) {
                                 case PLATZIEREMONSTER:
-                                    if (tile.getColor() == Color.WHITE) {
-                                        tile.setColor(Color.RED);
-                                    }
+                                    tile.setColor(Color.RED);
                                     break;
-                                case WANDLOESCHEN:
-                                    if (tile.getColor() == Color.GREY) {
-                                        tile.setColor(Color.WHITE);
-                                    }
+                                case TILELOESCHEN:
+                                    tile.setColor(Color.WHITE);
                                     break;
                                 case WANDPLATZIEREN:
                                     tile.setColor(Color.GREY);
                                     break;
                                 case PLAZIEREGEGENSTAENDE:
-                                    if (tile.getColor() == Color.WHITE) {
-                                        tile.setColor(Color.YELLOW);
-                                    }
+                                    tile.setColor(Color.YELLOW);
                                     break;
                                 default:
-                                    tile.setColor(Color.BLACK);
+                                    tile.setColor(Color.WHITE);
                             }
                             mouseEvent.consume();
                         }
@@ -80,18 +72,35 @@ public class View extends Application {
             // CSS and Buttons
             ToolButton deleteRaster = new ToolButton("Clear Raster");
             deleteRaster.setId("deleteRaster");
+            deleteRaster.setOnMouseClicked(event -> state = State.DELETERASTER);
             ToolButton gegenstandPlatzierenButton = new ToolButton("Place Gegenstände ");
             gegenstandPlatzierenButton.setId("placeStarting");
-            gegenstandPlatzierenButton.setOnMouseClicked(event -> state = State.PLAZIEREGEGENSTAENDE);
+            gegenstandPlatzierenButton.setOnMouseClicked(event -> {
+                                                            state = State.PLAZIEREGEGENSTAENDE;
+                                                            unselectButton();
+                                                            gegenstandPlatzierenButton.setId("placeStartingSelected");
+                                                        } );
             ToolButton monsterPlatzierenButton = new ToolButton("Place Monster ");
             monsterPlatzierenButton.setId("placeEnding");
-            monsterPlatzierenButton.setOnMouseClicked(event -> state = State.PLATZIEREMONSTER);
+            monsterPlatzierenButton.setOnMouseClicked(event -> {
+                                                        state = State.PLATZIEREMONSTER;
+                                                        unselectButton();
+                                                        monsterPlatzierenButton.setId("placeEndingSelected");
+                                                    } );
             ToolButton wandPlatzierenButton = new ToolButton("Wand platzieren");
             wandPlatzierenButton.setId("wandPlatzieren");
-            wandPlatzierenButton.setOnMouseClicked(event -> state = State.WANDPLATZIEREN);
-            ToolButton wandLoeschenButton = new ToolButton("Wand löschen");
+            wandPlatzierenButton.setOnMouseClicked(event -> {
+                                                    state = State.WANDPLATZIEREN;
+                                                    unselectButton();
+                                                    wandPlatzierenButton.setId("wandPlatzierenSelected");
+                                                } );
+            ToolButton wandLoeschenButton = new ToolButton("Tile löschen");
             wandLoeschenButton.setId("wandLoeschen");
-            wandLoeschenButton.setOnMouseClicked(event -> state = State.WANDLOESCHEN);
+            wandLoeschenButton.setOnMouseClicked(event -> {
+                                                    state = State.TILELOESCHEN;
+                                                    unselectButton();
+                                                    wandLoeschenButton.setId("wandLoeschenSelected");
+                                                } );
             buttonArray[0] = deleteRaster;
             buttonArray[1] = gegenstandPlatzierenButton;
             buttonArray[2] = monsterPlatzierenButton;
@@ -99,9 +108,10 @@ public class View extends Application {
             buttonArray[4] = wandLoeschenButton;
 
             buttons.getChildren().addAll(deleteRaster, gegenstandPlatzierenButton, monsterPlatzierenButton, wandPlatzierenButton, wandLoeschenButton);
-            sideText = new Text("Hallo");
+            sideText = new Text("Willkommen zur Gamemaster UI. In der Mitte des Fenster befindet sich das Spielfeld welches nun editiert werden kann. Dazu wählt man aus den oberen Buttons die Aktion aus und klickt einfach auf die entsprechenden Felder welche man abändern möchte.");
             sideText.setFont(new Font(32));
-            sideText.prefWidth(100);
+            sideText.prefWidth(400);
+            sideText.setWrappingWidth(377);
             VBox bottom = new VBox();
 
             Slider slide = new Slider();
@@ -144,6 +154,14 @@ public class View extends Application {
 
         }
 
+        private void unselectButton() {
+            for(int i = 0; i < buttonArray.length; i++){
+                if(buttonArray[i].getId().endsWith("Selected")){
+                    buttonArray[i].setId(buttonArray[i].getId().substring(0,buttonArray[i].getId().indexOf("Selected")));
+                }
+            }
+        }
+
         private EventHandler<? super MouseEvent> setButtonStates(Button button) {
             switch (button.getText()) {
                 case "Loesche Raster":
@@ -159,7 +177,7 @@ public class View extends Application {
                     state = State.WANDPLATZIEREN;
                     break;
                 case "Loesche Wand":
-                    state = State.WANDLOESCHEN;
+                    state = State.TILELOESCHEN;
                     break;
             }
             return null;
@@ -177,7 +195,6 @@ public class View extends Application {
 
         public class ToolButton extends Button {
             public ToolButton(String text) {
-//                this.getStyleClass().add("toolButton");
                 this.setText(text);
 
                 this.setOnMouseEntered(event -> {
@@ -200,8 +217,8 @@ public class View extends Application {
                     switch (state) {
                         case DELETERASTER:
                             controller.clear();
-                            controller.setSourceCordinates(-1, -1);
-                            controller.setSinkCordinates(-1, -1);
+                            //controller.setSourceCordinates(-1, -1);
+                            //controller.setSinkCordinates(-1, -1);
                             deleteRaster(largeGrid);
                             break;
 
@@ -211,7 +228,7 @@ public class View extends Application {
                             break;
                         case WANDPLATZIEREN:
                             break;
-                        case WANDLOESCHEN:
+                        case TILELOESCHEN:
                             break;
                         default:
                             break;
@@ -241,7 +258,7 @@ public class View extends Application {
 //                this.c = c;
                 this.color = color;
                 border.setFill(color);
-                border.setStroke(Color.BLACK);
+                border.setStroke(Color.GREY);
                 this.getChildren().add(border);
 
 //                this.setOnMouseEntered(event -> {
