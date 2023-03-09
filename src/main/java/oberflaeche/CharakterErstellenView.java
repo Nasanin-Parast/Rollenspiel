@@ -24,6 +24,19 @@ public class CharakterErstellenView {
 
     private GridPane grid;
 
+    private Image geistImage;
+    private Image menschImage;
+    private Image zwergImage;
+    private Image elfImage;
+    private Image hobbitImage;
+    private ImageView rasseView;
+
+    private Image bannerImage;
+    private Image diebImage;
+    private Image kaempferImage;
+    private Image magierImage;
+    private ImageView klasseView;
+
     private RadioButton diebButton;
     private RadioButton kaempferButton;
     private RadioButton magierButton;
@@ -86,11 +99,23 @@ public class CharakterErstellenView {
         emptyLabel.setPadding(new Insets(0, 0, 0, 140));
         grid.add(emptyLabel, 2, 0);
 
-        Image image = new Image("file:src/main/resources/image/zwerg.png");
-        ImageView view = new ImageView();
-        view.setImage(image);
+        geistImage = new Image("file:src/main/resources/image/geist.png");
+        menschImage = new Image("file:src/main/resources/image/mensch.png");
+        zwergImage = new Image("file:src/main/resources/image/zwerg.png");
+        elfImage = new Image("file:src/main/resources/image/elf.png");
+        hobbitImage = new Image("file:src/main/resources/image/hobbit.png");
+        rasseView = new ImageView();
+        rasseView.setImage(geistImage);
 
-        grid.add(view, 3, 0, 1, 5);
+        bannerImage = new Image("file:src/main/resources/image/banner.png");
+        diebImage = new Image("file:src/main/resources/image/bannerDieb.png");
+        kaempferImage = new Image("file:src/main/resources/image/bannerKaempfer.png");
+        magierImage = new Image("file:src/main/resources/image/bannerMagier.png");
+        klasseView = new ImageView();
+        klasseView.setImage(bannerImage);
+
+        grid.add(rasseView, 3, 0, 1, 5);
+        grid.add(klasseView, 4, 0, 1, 5);
 
         ToggleGroup klasseGroup = new ToggleGroup();
 
@@ -210,19 +235,23 @@ public class CharakterErstellenView {
     private void addRassenauswahlEventHandler() {
         menschButton.setOnMouseClicked(event -> {
             controller.setRasse(Rasse.MENSCH);
-            updateAlle();
+            rasseView.setImage(menschImage);
+            updateAlleEigenschaften();
         });
         zwergButton.setOnMouseClicked(event -> {
             controller.setRasse(Rasse.ZWERG);
-            updateAlle();
+            rasseView.setImage(zwergImage);
+            updateAlleEigenschaften();
         });
         elfButton.setOnMouseClicked(event -> {
             controller.setRasse(Rasse.ELF);
-            updateAlle();
+            rasseView.setImage(elfImage);
+            updateAlleEigenschaften();
         });
         hobbitButton.setOnMouseClicked(event -> {
             controller.setRasse(Rasse.HOBBIT);
-            updateAlle();
+            rasseView.setImage(hobbitImage);
+            updateAlleEigenschaften();
         });
     }
 
@@ -318,7 +347,7 @@ public class CharakterErstellenView {
         gesWert.setText(Integer.toString(geschicklichkeit));
     }
 
-    private void updateAlle() {
+    private void updateAlleEigenschaften() {
         updateIntelligenz();
         updateStaerke();
         updateKonstitution();
