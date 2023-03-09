@@ -6,6 +6,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -58,7 +60,7 @@ public class CharakterErstellenView {
         createEigenschaftenanzeige();
 
         Button speichernButton = new Button("speichern");
-        grid.add(speichernButton, 3, 14);
+        grid.add(speichernButton, 4, 14);
 
         scene = new Scene(grid, 600, 500);
     }
@@ -72,12 +74,23 @@ public class CharakterErstellenView {
         grid.setAlignment(Pos.TOP_LEFT);
         grid.setPadding(new Insets(50, 25, 25, 25));
         grid.setVgap(3);
+//        grid.setGridLinesVisible(true);
     }
 
     private void createKlassenauswahl() {
         Text klasseText = new Text("Klasse");
         klasseText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(klasseText, 0, 0, 2, 1);
+
+        Label emptyLabel = new Label();
+        emptyLabel.setPadding(new Insets(0, 0, 0, 140));
+        grid.add(emptyLabel, 2, 0);
+
+        Image image = new Image("file:src/main/resources/image/zwerg.png");
+        ImageView view = new ImageView();
+        view.setImage(image);
+
+        grid.add(view, 3, 0, 1, 5);
 
         ToggleGroup klasseGroup = new ToggleGroup();
 
@@ -148,10 +161,22 @@ public class CharakterErstellenView {
             controller.setIntelligenz((int) t1);
             updateIntelligenz();
         });
-        strBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> controller.setStaerke((int) t1));
-        konBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> controller.setKonstitution((int) t1));
-        wisBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> controller.setWeisheit((int) t1));
-        gesBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> controller.setGeschicklichkeit((int) t1));
+        strBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> {
+            controller.setStaerke((int) t1);
+            updateStaerke();
+        });
+        konBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> {
+            controller.setKonstitution((int) t1);
+            updateKonstitution();
+        });
+        wisBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> {
+            controller.setWeisheit((int) t1);
+            updateWeisheit();
+        });
+        gesBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> {
+            controller.setGeschicklichkeit((int) t1);
+            updateGeschicklichkeit();
+        });
     }
 
     private void createRassenauswahl() {
@@ -183,42 +208,54 @@ public class CharakterErstellenView {
     }
 
     private void addRassenauswahlEventHandler() {
-        menschButton.setOnMouseClicked(event -> controller.setRasse(Rasse.MENSCH));
-        zwergButton.setOnMouseClicked(event -> controller.setRasse(Rasse.ZWERG));
-        elfButton.setOnMouseClicked(event -> controller.setRasse(Rasse.ELF));
-        hobbitButton.setOnMouseClicked(event -> controller.setRasse(Rasse.HOBBIT));
+        menschButton.setOnMouseClicked(event -> {
+            controller.setRasse(Rasse.MENSCH);
+            updateAlle();
+        });
+        zwergButton.setOnMouseClicked(event -> {
+            controller.setRasse(Rasse.ZWERG);
+            updateAlle();
+        });
+        elfButton.setOnMouseClicked(event -> {
+            controller.setRasse(Rasse.ELF);
+            updateAlle();
+        });
+        hobbitButton.setOnMouseClicked(event -> {
+            controller.setRasse(Rasse.HOBBIT);
+            updateAlle();
+        });
     }
 
     private void createEigenschaftenanzeige() {
         Label intAnzeige = new Label("Intelligenz");
-        intAnzeige.setPadding(new Insets(0, 50, 0, 180));
-        grid.add(intAnzeige, 2, 6);
+        intAnzeige.setPadding(new Insets(0, 50, 0, 40));
+        grid.add(intAnzeige, 3, 6);
         intWert = new Label("-");
-        grid.add(intWert, 3, 6);
+        grid.add(intWert, 4, 6);
 
         Label strAnzeige = new Label("Stärke");
-        strAnzeige.setPadding(new Insets(0, 50, 0, 180));
-        grid.add(strAnzeige, 2, 7);
+        strAnzeige.setPadding(new Insets(0, 50, 0, 40));
+        grid.add(strAnzeige, 3, 7);
         strWert = new Label("-");
-        grid.add(strWert, 3, 7);
+        grid.add(strWert, 4, 7);
 
         Label konAnzeige = new Label("Konstitution");
-        konAnzeige.setPadding(new Insets(0, 50, 0, 180));
-        grid.add(konAnzeige, 2, 8);
+        konAnzeige.setPadding(new Insets(0, 50, 0, 40));
+        grid.add(konAnzeige, 3, 8);
         konWert = new Label("-");
-        grid.add(konWert, 3, 8);
+        grid.add(konWert, 4, 8);
 
         Label wisAnzeige = new Label("Weisheit");
-        wisAnzeige.setPadding(new Insets(0, 50, 0, 180));
-        grid.add(wisAnzeige, 2, 9);
+        wisAnzeige.setPadding(new Insets(0, 50, 0, 40));
+        grid.add(wisAnzeige, 3, 9);
         wisWert = new Label("-");
-        grid.add(wisWert, 3, 9);
+        grid.add(wisWert, 4, 9);
 
         Label gesAnzeige = new Label("Geschicklichkeit");
-        gesAnzeige.setPadding(new Insets(0, 50, 0, 180));
-        grid.add(gesAnzeige, 2, 10);
+        gesAnzeige.setPadding(new Insets(0, 50, 0, 40));
+        grid.add(gesAnzeige, 3, 10);
         gesWert = new Label("-");
-        grid.add(gesWert, 3, 10);
+        grid.add(gesWert, 4, 10);
     }
 
     private void updateIntelligenz() {
@@ -227,10 +264,66 @@ public class CharakterErstellenView {
             intelligenz += intBox.getSelectionModel().getSelectedItem();
         }
         if (rasseGroup.getSelectedToggle() != null) {
-            System.out.println(rasseGroup.getSelectedToggle().getUserData());
-            System.out.println(rasseGroup.getSelectedToggle().toString());
-            System.out.println(((RadioButton) rasseGroup.getSelectedToggle()).getText());
+            String rasse = ((RadioButton) rasseGroup.getSelectedToggle()).getText();
+            intelligenz += Rasse.valueOf(rasse.toUpperCase()).getIntBonus();
         }
+        intWert.setText(Integer.toString(intelligenz));
+    }
+
+    private void updateStaerke() {
+        int staerke = 0;
+        if (strBox.getSelectionModel().getSelectedItem() != null) {
+            staerke += strBox.getSelectionModel().getSelectedItem();
+        }
+        if (rasseGroup.getSelectedToggle() != null) {
+            String rasse = ((RadioButton) rasseGroup.getSelectedToggle()).getText();
+            staerke += Rasse.valueOf(rasse.toUpperCase()).getStrBonus();
+        }
+        strWert.setText(Integer.toString(staerke));
+    }
+
+    private void updateKonstitution() {
+        int konstitution = 0;
+        if (konBox.getSelectionModel().getSelectedItem() != null) {
+            konstitution += konBox.getSelectionModel().getSelectedItem();
+        }
+        if (rasseGroup.getSelectedToggle() != null) {
+            String rasse = ((RadioButton) rasseGroup.getSelectedToggle()).getText();
+            konstitution += Rasse.valueOf(rasse.toUpperCase()).getKonBonus();
+        }
+        konWert.setText(Integer.toString(konstitution));
+    }
+
+    private void updateWeisheit() {
+        int weisheit = 0;
+        if (wisBox.getSelectionModel().getSelectedItem() != null) {
+            weisheit += wisBox.getSelectionModel().getSelectedItem();
+        }
+        if (rasseGroup.getSelectedToggle() != null) {
+            String rasse = ((RadioButton) rasseGroup.getSelectedToggle()).getText();
+            weisheit += Rasse.valueOf(rasse.toUpperCase()).getWisBonus();
+        }
+        wisWert.setText(Integer.toString(weisheit));
+    }
+
+    private void updateGeschicklichkeit() {
+        int geschicklichkeit = 0;
+        if (gesBox.getSelectionModel().getSelectedItem() != null) {
+            geschicklichkeit += gesBox.getSelectionModel().getSelectedItem();
+        }
+        if (rasseGroup.getSelectedToggle() != null) {
+            String rasse = ((RadioButton) rasseGroup.getSelectedToggle()).getText();
+            geschicklichkeit += Rasse.valueOf(rasse.toUpperCase()).getGesBonus();
+        }
+        gesWert.setText(Integer.toString(geschicklichkeit));
+    }
+
+    private void updateAlle() {
+        updateIntelligenz();
+        updateStaerke();
+        updateKonstitution();
+        updateWeisheit();
+        updateGeschicklichkeit();
     }
 
 }
