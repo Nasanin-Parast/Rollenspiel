@@ -7,6 +7,11 @@ import spielfigur.model.Charakter;
 import spielfigur.builder.Rasse;
 import spielfigur.util.RandomUtils;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 public class CharakterController {
 
     private int[] verfuegbareWerte;
@@ -53,10 +58,22 @@ public class CharakterController {
         return verfuegbareWerte;
     }
 
-    public Charakter getCharakter() {
+    public void createCharakter() {
         Charakter charakter = charBuilder.checkWerte(verfuegbareWerte).build();
+
+        try {
+            FileOutputStream file = new FileOutputStream("src/save/file.txt");
+            ObjectOutputStream output = new ObjectOutputStream(file);
+            output.writeObject(charakter);
+            output.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
         verfuegbareWerte = RandomUtils.getCharakterWerte();
-        return charakter;
     }
 
 }

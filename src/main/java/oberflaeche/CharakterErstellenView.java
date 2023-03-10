@@ -14,6 +14,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import spielfigur.builder.Rasse;
 import spielfigur.controller.CharakterController;
+import spielfigur.model.Charakter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -59,6 +60,8 @@ public class CharakterErstellenView {
     private Label wisWert;
     private Label gesWert;
 
+    private TextField nameTextField;
+
     private Scene scene;
 
     public CharakterErstellenView(CharakterController controller) {
@@ -71,11 +74,17 @@ public class CharakterErstellenView {
         createRassenauswahl();
         addRassenauswahlEventHandler();
         createEigenschaftenanzeige();
+        createNamenEingabe();
 
         Button speichernButton = new Button("speichern");
         grid.add(speichernButton, 4, 14);
 
-        scene = new Scene(grid, 600, 500);
+        speichernButton.setOnMouseClicked(event -> {
+            controller.setName(nameTextField.getText());
+            controller.createCharakter();
+        });
+
+        scene = new Scene(grid, 700, 500);
     }
 
     public Scene getScene() {
@@ -294,6 +303,14 @@ public class CharakterErstellenView {
         grid.add(gesAnzeige, 3, 10);
         gesWert = new Label("-");
         grid.add(gesWert, 4, 10);
+    }
+
+    public void createNamenEingabe() {
+        Label nameLabel = new Label("Name");
+        nameLabel.setPadding(new Insets(0, 50, 0, 40));
+        grid.add(nameLabel, 3, 12);
+        nameTextField = new TextField();
+        grid.add(nameTextField, 4, 12);
     }
 
     private void updateIntelligenz() {
