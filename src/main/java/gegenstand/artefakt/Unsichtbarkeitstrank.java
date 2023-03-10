@@ -9,7 +9,9 @@ public class Unsichtbarkeitstrank extends Trank {
     }
 
     @Override
+    //Unsichtbar - nicht angreifbar - schleichen und verstecken erfolgreich
     public int Auswirkung() {
         return 0;
     }
+
 }

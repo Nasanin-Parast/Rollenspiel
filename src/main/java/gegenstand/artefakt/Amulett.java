@@ -7,6 +7,7 @@ public class Amulett extends MagischerGegenstand {
     }
 
     @Override
+    //+ Verteidigungsbonus 2
     public int Auswirkung() {
         return 0;
     }

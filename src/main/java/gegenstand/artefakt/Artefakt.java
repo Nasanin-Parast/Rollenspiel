@@ -10,11 +10,11 @@ public abstract class Artefakt extends Gegenstand {
 
     }
     @Override
-    public void interagiereMitGegenstand() {    }
-
-    public int Auswirkung() {
-        return 0;
+    public String interagiereMitGegenstand() {
+        return "Artefakt: " + this.getClass().getSimpleName();
     }
+
+    public abstract int Auswirkung();
 
     public String getFormDerAnwendung() {return formDerAnwendung;}
 

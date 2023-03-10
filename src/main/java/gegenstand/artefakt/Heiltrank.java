@@ -7,6 +7,7 @@ public class Heiltrank extends Trank {
     }
 
     @Override
+    //+ 2xd4 + 2 LP
     public int Auswirkung() {
         return 0;
     }

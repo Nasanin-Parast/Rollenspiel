@@ -30,7 +30,7 @@ public abstract class Ruestung extends Gegenstand {
     public void setGewichtInPfund(double gewichtInPfund) {this.gewichtInPfund = gewichtInPfund;}
 
     @Override
-    public void interagiereMitGegenstand() {
-
+    public String interagiereMitGegenstand() {
+        return "Rüstung: " + this.getClass().getSimpleName();
     }
 }

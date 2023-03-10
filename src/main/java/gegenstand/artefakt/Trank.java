@@ -2,19 +2,15 @@ package gegenstand.artefakt;
 
 import gegenstand.artefakt.Artefakt;
 
-public class Trank extends Artefakt {
+public abstract class Trank extends Artefakt {
 
-    public Trank(String formDerAnwendung) {
-        super(formDerAnwendung);
-    }
+    public Trank(String formDerAnwendung) {super(formDerAnwendung);}
 
     @Override
-    public int Auswirkung() {
-        return 0;
-    }
+    public abstract int Auswirkung();
 
     @Override
-    public void interagiereMitGegenstand() {
-
+    public String interagiereMitGegenstand() {
+        return "Trank: " + this.getClass().getSimpleName();
     }
 }

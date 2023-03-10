@@ -1,5 +1,6 @@
 package gegenstand;
 
 public abstract class Gegenstand {
-    public abstract void interagiereMitGegenstand();
+    public abstract String interagiereMitGegenstand();
+
 }

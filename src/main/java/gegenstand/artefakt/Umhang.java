@@ -9,6 +9,7 @@ public class Umhang extends MagischerGegenstand {
     }
 
     @Override
+    //Unsichtbar - nicht angreifbar - schleichen und verstecken erfolgreich
     public int Auswirkung() {
         return 0;
     }

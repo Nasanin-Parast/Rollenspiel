@@ -39,7 +39,7 @@ public abstract class Waffe extends Gegenstand {
     }
 
     @Override
-    public void interagiereMitGegenstand() {
-
+    public String interagiereMitGegenstand() {
+        return "Waffe: " + this.getClass().getSimpleName();
     }
 }
