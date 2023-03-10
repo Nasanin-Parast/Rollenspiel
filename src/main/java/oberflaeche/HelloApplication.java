@@ -12,6 +12,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import spielfigur.controller.CharakterController;
+import spielfigur.repository.CharakterRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +21,8 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-        CharakterController controller = new CharakterController();
+        CharakterRepository charakterRepository = new CharakterRepository();
+        CharakterController controller = new CharakterController(charakterRepository);
         CharakterErstellenView view = new CharakterErstellenView(controller);
         stage.setTitle("Charakter erstellen");
         stage.setScene(view.getScene());

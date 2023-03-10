@@ -5,6 +5,7 @@ import spielfigur.builder.NullBuilder;
 import spielfigur.builder.SpielfigurFactory;
 import spielfigur.model.Charakter;
 import spielfigur.builder.Rasse;
+import spielfigur.repository.CharakterRepository;
 import spielfigur.util.RandomUtils;
 
 import java.io.FileNotFoundException;
@@ -14,10 +15,13 @@ import java.io.ObjectOutputStream;
 
 public class CharakterController {
 
+    private CharakterRepository charakterRepository;
+
     private int[] verfuegbareWerte;
     private CharakterBuilder charBuilder;
 
-    public CharakterController() {
+    public CharakterController(CharakterRepository charakterRepository) {
+        this.charakterRepository = charakterRepository;
         verfuegbareWerte = RandomUtils.getCharakterWerte();
         charBuilder = new NullBuilder();
     }
@@ -60,19 +64,7 @@ public class CharakterController {
 
     public void createCharakter() {
         Charakter charakter = charBuilder.checkWerte(verfuegbareWerte).build();
-
-        try {
-            FileOutputStream file = new FileOutputStream("src/save/file.txt");
-            ObjectOutputStream output = new ObjectOutputStream(file);
-            output.writeObject(charakter);
-            output.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
+        charakterRepository.save(charakter);
         verfuegbareWerte = RandomUtils.getCharakterWerte();
     }
 
