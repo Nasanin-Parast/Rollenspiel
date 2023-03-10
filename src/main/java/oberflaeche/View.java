@@ -22,12 +22,13 @@ import oberflaeche.model.Knoten;
 
 public class View extends Application {
     private ControllerImpl controller = new ControllerImpl();
-    private HBox buttons = new HBox();
+    private FlowPane buttons = new FlowPane();
     private Cursor tempCursor;
-    private Button[] buttonArray = new Button[5];
+    private Button[] buttonArray = new Button[6];
     private Scene scene;
     private State state = State.DELETERASTER;
     private GridPane largeGrid = new GridPane();
+    private Tile tiles[][];
     private ArrayList<Knoten> list = new ArrayList<Knoten>();
     private Text sideText;
         private enum State {
@@ -38,9 +39,11 @@ public class View extends Application {
         public void start(Stage primaryStage) {
             final int breite = 1920;
             final int hoehe = 1080;
+            tiles = new Tile[controller.getRowSize()][controller.getColumnSize()];
             for (int r = 0; r < controller.getRowSize(); r++) {
                 for (int c = 0; c < controller.getColumnSize(); c++) {
                     Tile tile = new Tile(Color.WHITE, r, c);
+                    tiles[r][c] = tile;
                     largeGrid.add(tile, r, c);
                     tile.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                         @Override
@@ -67,7 +70,8 @@ public class View extends Application {
                 }
             }
             largeGrid.setAlignment(Pos.CENTER);
-            buttons.setSpacing(10);
+            buttons.setMaxWidth(800);
+            //buttons.setSpacing(10);
 
             // CSS and Buttons
             ToolButton deleteRaster = new ToolButton("Clear Raster");
@@ -101,13 +105,21 @@ public class View extends Application {
                                                     unselectButton();
                                                     wandLoeschenButton.setId("wandLoeschenSelected");
                                                 } );
+            ToolButton save = new ToolButton("Speichern");
+            save.setId("save");
+            save.setOnMouseClicked(event -> {
+                                    saveMap();
+                                    unselectButton();
+                                    save.setId("saveSelected");
+            } );                  
             buttonArray[0] = deleteRaster;
             buttonArray[1] = gegenstandPlatzierenButton;
             buttonArray[2] = monsterPlatzierenButton;
             buttonArray[3] = wandPlatzierenButton;
             buttonArray[4] = wandLoeschenButton;
+            buttonArray[5] = save;
 
-            buttons.getChildren().addAll(deleteRaster, gegenstandPlatzierenButton, monsterPlatzierenButton, wandPlatzierenButton, wandLoeschenButton);
+            buttons.getChildren().addAll(deleteRaster, gegenstandPlatzierenButton, monsterPlatzierenButton, wandPlatzierenButton, wandLoeschenButton, save);
             sideText = new Text("Willkommen zur Gamemaster UI. In der Mitte des Fenster befindet sich das Spielfeld welches nun editiert werden kann. Dazu wählt man aus den oberen Buttons die Aktion aus und klickt einfach auf die entsprechenden Felder welche man abändern möchte.");
             sideText.setFont(new Font(32));
             sideText.prefWidth(400);
@@ -250,33 +262,13 @@ public class View extends Application {
         public class Tile extends StackPane {
             Rectangle border = new Rectangle(45, 45);
             Color color;
-//            int r;
-//            int c;
 
             public Tile(Color color, int r, int c) {
-//                this.r = r;
-//                this.c = c;
                 this.color = color;
                 border.setFill(color);
                 border.setStroke(Color.GREY);
                 this.getChildren().add(border);
 
-//                this.setOnMouseEntered(event -> {
-//                    tempCursor = scene.getCursor();
-//                    scene.setCursor(Cursor.CROSSHAIR);
-//                    if (event.isShiftDown()) {
-//                        drawTile();
-//                    }
-//
-//                });
-
-//                this.setOnMouseExited(event -> {
-//                    scene.setCursor(tempCursor);
-//                });
-//
-//                setOnMouseReleased(event -> {
-//                    drawTile();
-//                });
             }
 
             public void setColor(Color color) {
@@ -288,69 +280,24 @@ public class View extends Application {
                 return color;
             }
 
-//            private void drawTile() {
-//                switch (state) {
-//                    case PLATZIEREMONSTER:
-//                        for (Node tile : largeGrid.getChildren()) {
-//                            if (((Tile) tile).color == Color.RED) {
-//                                ((Tile) tile).color = Color.WHITE;
-//                                ((Tile) tile).border.setFill(Color.WHITE);
-//                            }
-//                        }
-//
-//                        if (c == controller.getSourceXCordinate() && r == controller.getSourceYCordinate()) {
-//                            controller.setSourceCordinates(-1, -1);
-//                        }
-//
-//                        this.color = Color.RED;
-//                        border.setFill(this.color);
-//                        controller.setSinkCordinates(c, r);
-//                        break;
-//
-//                    case PLAZIEREGEGENSTAENDE:
-//                        for (Node tile : largeGrid.getChildren()) {
-//
-//                            if (((Tile) tile).color.equals(Color.LIME)) {
-//                                ((Tile) tile).color = Color.WHITE;
-//                                ((Tile) tile).border.setFill(Color.WHITE);
-//                            }
-//                        }
-//
-//                        if (c == controller.getSinkXCordinate() && r == controller.getSinkYCordinate()) {
-//                            controller.setSinkCordinates(-1, -1);
-//                        }
-//
-//                        this.color = Color.LIME;
-//                        border.setFill(this.color);
-//                        controller.setSourceCordinates(c, r);
-//
-//                        break;
-//
-//                    case WANDPLATZIEREN:
-//                        if (c == controller.getSinkXCordinate() && r == controller.getSinkYCordinate()) {
-//                            controller.setSinkCordinates(-1, -1);
-//                        } else if (c == controller.getSourceXCordinate() && r == controller.getSourceYCordinate()) {
-//                            controller.setSourceCordinates(-1, -1);
-//                        }
-//                        this.color = Color.GRAY;
-//                        border.setFill(this.color);
-//                        controller.wandPlatzieren(c, r);
-//
-//                        break;
-//
-//                    case WANDLOESCHEN:
-//                        if (color == Color.GRAY) {
-//                            this.color = Color.WHITE;
-//                            border.setFill(this.color);
-//                            controller.wandLoeschen(c, r);
-//                        }
-//                        break;
-//                    default:
-//                        break;
-//
-//                }
-//
-//            }
+        }
+
+        public void saveMap(){
+            String temp = "";
+            for (int r = 0; r < controller.getRowSize(); r++) {
+                for (int c = 0; c < controller.getColumnSize(); c++) {
+                    if(tiles[r][c].getColor() == Color.WHITE){
+                        temp = temp + "0";
+                    } else if(tiles[r][c].getColor() == Color.RED){
+                        temp = temp + "1";
+                    } else if(tiles[r][c].getColor() == Color.YELLOW){
+                        temp = temp + "2";
+                    } else if(tiles[r][c].getColor() == Color.GREY){
+                        temp = temp + "3";
+                    }
+                }
+            }
+            System.out.println(temp);
         }
 
     }
