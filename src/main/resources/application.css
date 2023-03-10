@@ -117,3 +117,24 @@
 	-fx-font-family: sans-serif;
 	-fx-border-color: black;
 }
+
+#save{
+	-fx-focus-color: black;
+	-fx-text-fill: black;
+	-fx-effect: none;
+	-fx-font-size: 29;
+	-fx-font-style: normal;
+	-fx-font-weight: bold;
+	-fx-font-family: sans-serif;
+}
+
+#saveSelected{
+	-fx-focus-color: black;
+	-fx-text-fill: black;
+	-fx-effect: none;
+	-fx-font-size: 29;
+	-fx-font-style: normal;
+	-fx-font-weight: bold;
+	-fx-font-family: sans-serif;
+	-fx-border-color: black;
+}
