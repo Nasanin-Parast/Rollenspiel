@@ -1,6 +1,4 @@
-package gegenstand.artefakt;
-
-import gegenstand.artefakt.Artefakt;
+package gegenstand;
 
 public class Normale extends Artefakt {
 
@@ -9,7 +7,7 @@ public class Normale extends Artefakt {
     }
 
     @Override
-    public int Auswirkung() {
-        return 0;
+    public int Auswirkung(int lebenspuenkteAktuell) {
+        return lebenspuenkteAktuell;
     }
 }

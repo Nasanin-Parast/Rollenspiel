@@ -1,4 +1,4 @@
-package gegenstand.artefakt;
+package gegenstand;
 
 public class Gift extends Trank {
 
@@ -8,7 +8,7 @@ public class Gift extends Trank {
 
     @Override
     //-6 LP
-    public int Auswirkung() {
-        return 0;
+    public int Auswirkung(int lebenspuenkteAktuell) {
+        return lebenspuenkteAktuell - 6;
     }
 }

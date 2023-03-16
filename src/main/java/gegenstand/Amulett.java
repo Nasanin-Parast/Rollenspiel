@@ -1,4 +1,4 @@
-package gegenstand.artefakt;
+package gegenstand;
 
 public class Amulett extends MagischerGegenstand {
 
@@ -8,8 +8,9 @@ public class Amulett extends MagischerGegenstand {
 
     @Override
     //+ Verteidigungsbonus 2
-    public int Auswirkung() {
-        return 0;
+    public int Auswirkung(int ruestungsklasse) {
+        return ruestungsklasse + 2;
     }
+
 }
 

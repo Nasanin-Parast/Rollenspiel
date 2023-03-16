@@ -1,13 +1,11 @@
-package gegenstand.artefakt;
-
-import gegenstand.artefakt.Artefakt;
+package gegenstand;
 
 public abstract class Trank extends Artefakt {
 
     public Trank(String formDerAnwendung) {super(formDerAnwendung);}
 
     @Override
-    public abstract int Auswirkung();
+    public abstract int Auswirkung(int lebenspuenkteAktuell);
 
     @Override
     public String interagiereMitGegenstand() {

@@ -1,4 +1,4 @@
-package gegenstand.artefakt;
+package gegenstand;
 
 import gegenstand.Gegenstand;
 
@@ -14,7 +14,7 @@ public abstract class Artefakt extends Gegenstand {
         return "Artefakt: " + this.getClass().getSimpleName();
     }
 
-    public abstract int Auswirkung();
+    public abstract int Auswirkung(int punkte);
 
     public String getFormDerAnwendung() {return formDerAnwendung;}
 

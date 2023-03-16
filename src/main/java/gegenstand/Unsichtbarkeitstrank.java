@@ -1,6 +1,4 @@
-package gegenstand.artefakt;
-
-import gegenstand.artefakt.Trank;
+package gegenstand;
 
 public class Unsichtbarkeitstrank extends Trank {
 
@@ -10,8 +8,10 @@ public class Unsichtbarkeitstrank extends Trank {
 
     @Override
     //Unsichtbar - nicht angreifbar - schleichen und verstecken erfolgreich
-    public int Auswirkung() {
-        return 0;
+    public int Auswirkung(int lebenspuenkteAktuell) {
+
+        System.out.println("Unsichtbar - nicht angreifbar - schleichen und verstecken erfolgreich");
+        return lebenspuenkteAktuell;
     }
 
 }

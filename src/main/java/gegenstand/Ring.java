@@ -1,6 +1,4 @@
-package gegenstand.artefakt;
-
-import gegenstand.artefakt.MagischerGegenstand;
+package gegenstand;
 
 public class Ring extends MagischerGegenstand {
 
@@ -9,7 +7,7 @@ public class Ring extends MagischerGegenstand {
     }
 
     @Override
-    public int Auswirkung() {
-        return 0;
+    public int Auswirkung(int lebenspuenkteAktuell) {
+        return lebenspuenkteAktuell;
     }
 }

@@ -1,6 +1,4 @@
-package gegenstand.artefakt;
-
-import gegenstand.artefakt.MagischerGegenstand;
+package gegenstand;
 
 public class Umhang extends MagischerGegenstand {
 
@@ -10,7 +8,9 @@ public class Umhang extends MagischerGegenstand {
 
     @Override
     //Unsichtbar - nicht angreifbar - schleichen und verstecken erfolgreich
-    public int Auswirkung() {
-        return 0;
+    public int Auswirkung(int lebenspuenkteAktuell) {
+
+        System.out.println("Unsichtbar - nicht angreifbar - schleichen und verstecken erfolgreich");
+        return lebenspuenkteAktuell;
     }
 }
