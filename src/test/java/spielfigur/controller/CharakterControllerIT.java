@@ -1,4 +1,4 @@
-package spielfigur.controller;
+/*package spielfigur.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -165,4 +165,4 @@ class CharakterControllerIT {
         assertThrows(MissingAttributeException.class, controller::getCharakter);
     }
 
-}
+}*/

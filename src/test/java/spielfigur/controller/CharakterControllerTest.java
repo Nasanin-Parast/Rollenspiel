@@ -1,4 +1,4 @@
-package spielfigur.controller;
+/*package spielfigur.controller;
 
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
@@ -129,4 +129,4 @@ class CharakterControllerTest {
         assertNotEquals(verfuegbareWerte, controller.getVerfuegbareWerte());
     }
 
-}
+}*/

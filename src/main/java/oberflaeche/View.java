@@ -1,4 +1,9 @@
 package oberflaeche;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -31,6 +36,7 @@ public class View extends Application {
     private Tile tiles[][];
     private ArrayList<Knoten> list = new ArrayList<Knoten>();
     private Text sideText;
+    private File file = new File("./Rollenspiel/Dateien/Save.txt");
         private enum State {
             DELETERASTER, PLAZIEREGEGENSTAENDE, PLATZIEREMONSTER, WANDPLATZIEREN, TILELOESCHEN;
         }
@@ -296,6 +302,13 @@ public class View extends Application {
                         temp = temp + "3";
                     }
                 }
+            }
+            try (FileOutputStream out = new FileOutputStream(file, true)) {
+                out.write(Byte.parseByte(temp));
+                out.flush();
+            } catch (IOException e) {
+                System.out.println("File could not be opened.");
+                e.printStackTrace();
             }
             System.out.println(temp);
         }
