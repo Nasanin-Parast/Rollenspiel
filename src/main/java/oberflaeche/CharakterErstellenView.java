@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import spielfigur.builder.Rasse;
 import spielfigur.controller.CharakterController;
 import spielfigur.model.Charakter;
@@ -64,7 +65,10 @@ public class CharakterErstellenView {
 
     private Scene scene;
 
-    public CharakterErstellenView(CharakterController controller) {
+    private HelloApplication app;
+
+    public CharakterErstellenView(HelloApplication app, CharakterController controller) {
+        this.app = app;
         this.controller = controller;
         createGrid();
         createKlassenauswahl();
@@ -80,8 +84,37 @@ public class CharakterErstellenView {
         grid.add(speichernButton, 4, 14);
 
         speichernButton.setOnMouseClicked(event -> {
-            controller.setName(nameTextField.getText());
-            controller.createCharakter();
+            try {
+                controller.setName(nameTextField.getText());
+                controller.createCharakter();
+                Stage stage = new Stage();
+                GridPane gridPane = new GridPane();
+                Label okLabel = new Label("Speichern erfolgreich");
+                gridPane.add(okLabel, 0, 0);
+                Button okButton = new Button("OK");
+                gridPane.add(okButton, 0, 1);
+                Scene scene = new Scene(gridPane, 300, 100);
+                stage.setScene(scene);
+                stage.setTitle("Supi dupi");
+                stage.show();
+                okButton.setOnMouseClicked(ev -> {
+                    stage.close();
+                    app.changeToStartView();
+                });
+            } catch (Exception e) {
+                Stage stage = new Stage();
+                GridPane gridPane = new GridPane();
+                Label fehlerLabel = new Label(e.getMessage());
+                gridPane.add(fehlerLabel, 0, 0);
+                Button okButton = new Button("OK");
+                gridPane.add(okButton, 0, 1);
+                Scene scene = new Scene(gridPane, 300, 100);
+                stage.setScene(scene);
+                stage.setTitle("Fehler");
+                stage.show();
+
+                okButton.setOnMouseClicked(ev -> stage.close());
+            }
         });
 
         scene = new Scene(grid, 700, 500);

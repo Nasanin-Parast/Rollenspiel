@@ -76,7 +76,7 @@ public abstract class CharakterBuilder {
     }
 
     private void checkAttribute() {
-        if (name == null) {
+        if (name == null || name.isBlank()) {
             throw new MissingAttributeException("Kein Name eingetragen");
         }
         if (rasse == null) {
