@@ -1,4 +1,6 @@
-package gegenstand;
+package gegenstand.artefakt;
+
+import gegenstand.artefakt.Artefakt;
 
 public class MagischerGegenstand extends Artefakt {
 

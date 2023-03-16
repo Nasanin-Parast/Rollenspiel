@@ -1,4 +1,4 @@
-package gegenstand;
+package gegenstand.artefakt;
 
 import java.util.Random;
 

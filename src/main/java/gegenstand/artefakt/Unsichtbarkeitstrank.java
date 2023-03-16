@@ -1,4 +1,6 @@
-package gegenstand;
+package gegenstand.artefakt;
+
+import gegenstand.artefakt.Trank;
 
 public class Unsichtbarkeitstrank extends Trank {
 

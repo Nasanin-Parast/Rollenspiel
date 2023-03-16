@@ -1,4 +1,6 @@
-package gegenstand;
+package gegenstand.artefakt;
+
+import gegenstand.artefakt.Artefakt;
 
 public abstract class Trank extends Artefakt {
 

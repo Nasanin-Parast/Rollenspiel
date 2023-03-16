@@ -1,4 +1,4 @@
-package gegenstand;
+package gegenstand.artefakt;
 
 public class Amulett extends MagischerGegenstand {
 

@@ -1,5 +1,6 @@
 package gegenstand;
 
+import gegenstand.artefakt.*;
 import gegenstand.ruestung.*;
 import gegenstand.waffe.*;
 

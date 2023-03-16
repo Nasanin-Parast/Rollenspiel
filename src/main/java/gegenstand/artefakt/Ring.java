@@ -1,4 +1,6 @@
-package gegenstand;
+package gegenstand.artefakt;
+
+import gegenstand.artefakt.MagischerGegenstand;
 
 public class Ring extends MagischerGegenstand {
 
