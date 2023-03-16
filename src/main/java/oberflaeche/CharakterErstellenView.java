@@ -117,6 +117,10 @@ public class CharakterErstellenView {
             }
         });
 
+        Button backButton = new Button("zurück");
+        grid.add(backButton, 3, 14);
+        backButton.setOnMouseClicked(e -> app.changeToStartView());
+
         scene = new Scene(grid, 700, 500);
     }
 

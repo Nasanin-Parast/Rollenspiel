@@ -1,6 +1,8 @@
 package spielfigur.model;
 
-public abstract class Spielfigur {
+import java.io.Serializable;
+
+public abstract class Spielfigur implements Serializable {
     private static final int MODIFICATIONVALUE = 10;
     private final int BASIS_LP;
     private String name;

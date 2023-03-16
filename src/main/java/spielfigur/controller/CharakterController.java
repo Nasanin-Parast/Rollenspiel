@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.List;
 
 public class CharakterController {
 
@@ -66,6 +67,10 @@ public class CharakterController {
         Charakter charakter = charBuilder.checkWerte(verfuegbareWerte).build();
         charakterRepository.save(charakter);
         verfuegbareWerte = RandomUtils.getCharakterWerte();
+    }
+
+    public List<Charakter> getAlleCharakter() {
+        return charakterRepository.getAll();
     }
 
 }

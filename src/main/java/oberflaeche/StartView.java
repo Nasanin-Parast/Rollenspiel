@@ -16,7 +16,7 @@ public class StartView {
         this.app = app;
 
         GridPane grid = new GridPane();
-        grid.setAlignment(Pos.TOP_LEFT);
+        grid.setAlignment(Pos.BASELINE_CENTER);
         grid.setPadding(new Insets(50, 25, 25, 25));
         grid.setVgap(3);
 
@@ -29,6 +29,7 @@ public class StartView {
         grid.add(spielVorbereiten, 0, 2);
 
         charakterErstellen.setOnMouseClicked(event -> app.changeToCharakterErstellenView());
+        charaktereAnsehen.setOnMouseClicked(event -> app.changeToCharaktereAnsehenView());
 
         scene = new Scene(grid, 300, 300);
     }

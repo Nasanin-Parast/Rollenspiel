@@ -43,6 +43,12 @@ public class HelloApplication extends Application {
         stage.setTitle("Charakter erstellen");
     }
 
+    public void changeToCharaktereAnsehenView() {
+        CharaktereAnsehenView view = new CharaktereAnsehenView(this, charakterController);
+        stage.setScene(view.getScene());
+        stage.setTitle("Alle Charaktere");
+    }
+
     public void changeToStartView() {
         stage.setScene(startView.getScene());
         stage.setTitle("Willkommen Beschwörer");
