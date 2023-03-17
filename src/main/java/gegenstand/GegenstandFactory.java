@@ -1,3 +1,4 @@
+//Autor: Melissa Maas
 package gegenstand;
 
 import gegenstand.artefakt.*;
@@ -40,16 +41,16 @@ public class GegenstandFactory {
         if(gegenstand.equals("Schild")) {
             return new Schild(2, ' ', 0, 6);
         }
-        if(gegenstand.equals("keineWaffe")) {
+        if(gegenstand.equals("KeineWaffe")) {
             return new KeineWaffe('S', 0, 0, 0);
         }
         if(gegenstand.equals("Dolch")) {
             return new Dolch('D', 2, 1, 2);
         }
-        if(gegenstand.equals("Wurfpfeile")) {
+        if(gegenstand.equals("Wurfpfeil")) {
             return new Wurfpfeil('D', (1 / 20), (1 / 4), 2, 20);
         }
-        if(gegenstand.equals("Knüppel")) {
+        if(gegenstand.equals("Knueppel")) {
             return new Knueppel('S', 1, 3, 1);
         }
         if(gegenstand.equals("Handaxt")) {
@@ -70,7 +71,8 @@ public class GegenstandFactory {
         if(gegenstand.equals("Bogen mit Pfeilen")) {
             return new BogenMitPfeilen('D', 15, 2, 6, 20);
         }
-
-        return null;
+        else{
+            throw new IllegalArgumentException("Gegenstand kann nicht erzeugt werden");
+        }
     }
 }

@@ -1,3 +1,4 @@
+//Autor: Melissa Maas
 package gegenstand.falle;
 
 import gegenstand.Gegenstand;

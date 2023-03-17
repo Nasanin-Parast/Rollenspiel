@@ -1,3 +1,4 @@
+//Autor: Melissa Maas
 package gegenstand.waffe;
 
 public class KeineWaffe extends Waffe {

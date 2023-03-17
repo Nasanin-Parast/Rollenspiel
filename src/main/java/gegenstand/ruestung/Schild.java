@@ -1,3 +1,4 @@
+//Autor: Melissa Maas
 package gegenstand.ruestung;
 
 import gegenstand.ruestung.Ruestung;

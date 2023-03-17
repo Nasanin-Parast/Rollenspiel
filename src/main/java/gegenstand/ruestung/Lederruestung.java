@@ -1,3 +1,4 @@
+//Autor: Melissa Maas
 package gegenstand.ruestung;
 
 public class Lederruestung extends Ruestung {

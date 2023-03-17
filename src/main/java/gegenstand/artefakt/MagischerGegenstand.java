@@ -1,3 +1,4 @@
+//Autor: Melissa Maas
 package gegenstand.artefakt;
 
 import gegenstand.artefakt.Artefakt;
