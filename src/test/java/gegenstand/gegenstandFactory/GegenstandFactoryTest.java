@@ -1,4 +1,4 @@
-//Autor: Melissa Maas
+//Autor: Melissa Maasm
 package gegenstand.gegenstandFactory;
 
 import gegenstand.Gegenstand;
