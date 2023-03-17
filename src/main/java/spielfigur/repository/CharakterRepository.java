@@ -29,6 +29,34 @@ public class CharakterRepository {
         }
     }
 
+    public void delete(Charakter charakter) {
+        try {
+            List<Charakter> alle = getAll();
+            for (int i = 0; i < alle.size(); i++) {
+                if (charakter.getName().trim().equals(alle.get(i).getName().trim()) &&
+                        charakter.getIntelligenz() == alle.get(i).getIntelligenz() &&
+                        charakter.getStaerke() == alle.get(i).getStaerke() &&
+                        charakter.getKonstitution() == alle.get(i).getKonstitution() &&
+                        charakter.getWeisheit() == alle.get(i).getWeisheit() &&
+                        charakter.getGeschicklichkeit() == alle.get(i).getGeschicklichkeit()) {
+                    alle.remove(i);
+                    break;
+                }
+            }
+            FileOutputStream file = new FileOutputStream("src/main/resources/character/character.txt");
+            ObjectOutputStream output;
+            output = new ObjectOutputStream(file);
+            for (Charakter c : alle) {
+                output.writeObject(c);
+            }
+            output.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<Charakter> getAll() {
         List<Charakter> charaktere = new ArrayList<>();
         ObjectInputStream input = null;
@@ -36,13 +64,10 @@ public class CharakterRepository {
             FileInputStream file = new FileInputStream("src/main/resources/character/character.txt");
             input = new ObjectInputStream(file);
             Charakter charakter = (Charakter) input.readObject();
-            System.out.println("erfolgreicher inputstream");
             while (charakter != null) {
-                System.out.println("Charakter found: " + charakter.getName());
                 charaktere.add(charakter);
                 charakter = (Charakter) input.readObject();
             }
-            System.out.println("End of file");
         } catch (EOFException e) {
             input.close();
         } catch (IOException e) {

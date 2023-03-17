@@ -73,4 +73,8 @@ public class CharakterController {
         return charakterRepository.getAll();
     }
 
+    public void deleteCharakter(Charakter charakter) {
+        charakterRepository.delete(charakter);
+    }
+
 }
