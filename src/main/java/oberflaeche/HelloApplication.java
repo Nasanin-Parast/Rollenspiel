@@ -54,4 +54,10 @@ public class HelloApplication extends Application {
         stage.setTitle("Willkommen Beschwörer");
     }
 
+    public void changeToKampf() {
+        KampfrundeView view = new KampfrundeView(this);
+        stage.setScene(view.getScene());
+        stage.setTitle("Kampf");
+    }
+
 }

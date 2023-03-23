@@ -31,6 +31,10 @@ public class StartView {
         charakterErstellen.setOnMouseClicked(event -> app.changeToCharakterErstellenView());
         charaktereAnsehen.setOnMouseClicked(event -> app.changeToCharaktereAnsehenView());
 
+        Button ube = new Button("Kampf");
+        grid.add(ube, 0, 3);
+        ube.setOnMouseClicked(event -> app.changeToKampf());
+
         scene = new Scene(grid, 300, 300);
     }
 
