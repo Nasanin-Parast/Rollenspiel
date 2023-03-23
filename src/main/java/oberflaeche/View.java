@@ -1,18 +1,25 @@
 package oberflaeche;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -28,15 +35,20 @@ import oberflaeche.model.Knoten;
 public class View extends Application {
     private ControllerImpl controller = new ControllerImpl();
     private FlowPane buttons = new FlowPane();
+    private FlowPane mapSave = new FlowPane();
     private Cursor tempCursor;
-    private Button[] buttonArray = new Button[6];
+    private Button[] buttonArray = new Button[5];
+    private Region[] mapArray = new Region[3];
     private Scene scene;
     private State state = State.DELETERASTER;
     private GridPane largeGrid = new GridPane();
+    private BorderPane topRow = new BorderPane();
     private Tile tiles[][];
     private ArrayList<Knoten> list = new ArrayList<Knoten>();
     private Text sideText;
     private File file = new File("./Rollenspiel/Dateien/Save.txt");
+    private ObservableList<String> choiceList = FXCollections.observableArrayList("");
+    ChoiceBox<String> maps;
         private enum State {
             DELETERASTER, PLAZIEREGEGENSTAENDE, PLATZIEREMONSTER, WANDPLATZIEREN, TILELOESCHEN;
         }
@@ -77,6 +89,7 @@ public class View extends Application {
             }
             largeGrid.setAlignment(Pos.CENTER);
             buttons.setMaxWidth(800);
+            
             //buttons.setSpacing(10);
 
             // CSS and Buttons
@@ -111,47 +124,54 @@ public class View extends Application {
                                                     unselectButton();
                                                     wandLoeschenButton.setId("wandLoeschenSelected");
                                                 } );
-            ToolButton save = new ToolButton("Speichern");
-            save.setId("save");
-            save.setOnMouseClicked(event -> {
-                                    saveMap();
-                                    unselectButton();
-                                    save.setId("saveSelected");
-            } );                  
+            
+
             buttonArray[0] = deleteRaster;
             buttonArray[1] = gegenstandPlatzierenButton;
             buttonArray[2] = monsterPlatzierenButton;
             buttonArray[3] = wandPlatzierenButton;
             buttonArray[4] = wandLoeschenButton;
-            buttonArray[5] = save;
 
-            buttons.getChildren().addAll(deleteRaster, gegenstandPlatzierenButton, monsterPlatzierenButton, wandPlatzierenButton, wandLoeschenButton, save);
+            ToolButton save = new ToolButton("Speichern");
+            save.setId("save");
+            save.setOnMouseClicked(event -> saveMap());
+
+            ToolButton load = new ToolButton("Laden");
+            load.setId("load");
+            load.setOnMouseClicked(event -> loadMap());
+
+            try (Scanner in = new Scanner(file)) {
+                List<String> temp = new ArrayList<String>();
+                while(in.hasNextLine()){
+                    temp.add(in.nextLine().split(";")[0]);
+                }
+                choiceList.addAll(temp);
+                maps = new ChoiceBox<>(choiceList);
+            } catch (IOException e) {
+                System.out.println("File could not be opened.");
+                e.printStackTrace();
+            }
+            maps.maxWidth(10);
+
+            mapArray[0] = save;
+            mapArray[1] = load;
+            mapArray[2] = maps;
+            mapSave.getChildren().addAll(save, load, maps);
+
+            buttons.getChildren().addAll(deleteRaster, gegenstandPlatzierenButton, monsterPlatzierenButton, wandPlatzierenButton, wandLoeschenButton);
             sideText = new Text("Willkommen zur Gamemaster UI. In der Mitte des Fenster befindet sich das Spielfeld welches nun editiert werden kann. Dazu wählt man aus den oberen Buttons die Aktion aus und klickt einfach auf die entsprechenden Felder welche man abändern möchte.");
             sideText.setFont(new Font(32));
             sideText.prefWidth(400);
             sideText.setWrappingWidth(377);
             VBox bottom = new VBox();
 
-            Slider slide = new Slider();
-            slide.setOnMouseEntered(event -> {
-                tempCursor = scene.getCursor();
-                scene.setCursor(Cursor.HAND);
-            });
-            slide.setOnMouseExited(event -> {
-                scene.setCursor(tempCursor);
-            });
-            slide.setShowTickLabels(true);
-            slide.setShowTickMarks(true);
-            slide.setBlockIncrement(1);
-            slide.adjustValue(50);
-            Text bottomText = new Text();
-            bottomText.setFont(new Font(32));
-            bottom.getChildren().addAll(bottomText, slide);
+            topRow.setLeft(buttons);
+            topRow.setRight(mapSave);
 
             // root structure
             BorderPane root = new BorderPane();
             root.getStyleClass().add("root");
-            root.setTop(buttons);
+            root.setTop(topRow);
             root.setCenter(largeGrid);
             root.setLeft(sideText);
             root.setBottom(bottom);
@@ -289,28 +309,86 @@ public class View extends Application {
         }
 
         public void saveMap(){
-            String temp = "";
-            for (int r = 0; r < controller.getRowSize(); r++) {
-                for (int c = 0; c < controller.getColumnSize(); c++) {
-                    if(tiles[r][c].getColor() == Color.WHITE){
-                        temp = temp + "0";
-                    } else if(tiles[r][c].getColor() == Color.RED){
-                        temp = temp + "1";
-                    } else if(tiles[r][c].getColor() == Color.YELLOW){
-                        temp = temp + "2";
-                    } else if(tiles[r][c].getColor() == Color.GREY){
-                        temp = temp + "3";
-                    }
+            int i = 1;
+            try (Scanner in = new Scanner(file)) {
+                while(in.hasNextLine()){
+                    i++;
+                    in.nextLine();
                 }
+            } catch (Exception e) {
+                System.out.println("File could not be opened.");
+                e.printStackTrace();
             }
             try (FileOutputStream out = new FileOutputStream(file, true)) {
-                out.write(Byte.parseByte(temp));
+                out.write(("Map " + i + ";").getBytes());
+                String temp = "";
+                for (int r = 0; r < controller.getRowSize(); r++) {
+                    for (int c = 0; c < controller.getColumnSize(); c++) {
+                        if(tiles[r][c].getColor() == Color.WHITE){
+                            temp = temp + "0";
+                            out.write("0".getBytes());
+                        } else if(tiles[r][c].getColor() == Color.RED){
+                            temp = temp + "1";
+                            out.write("1".getBytes());
+                        } else if(tiles[r][c].getColor() == Color.YELLOW){
+                            temp = temp + "2";
+                            out.write("2".getBytes());
+                        } else if(tiles[r][c].getColor() == Color.GREY){
+                            temp = temp + "3";
+                            out.write("3".getBytes());
+                        }
+                    }
+                }
+                out.write("\n".getBytes());
                 out.flush();
+                choiceList.add(temp);
+                maps.setItems(choiceList);
             } catch (IOException e) {
                 System.out.println("File could not be opened.");
                 e.printStackTrace();
             }
-            System.out.println(temp);
+        }
+
+        public void loadMap(){
+            try (Scanner in = new Scanner(file)) {
+                while(in.hasNextLine()){
+                    String temp = in.nextLine();
+                    if(temp.split(";")[0].contains(maps.getSelectionModel().getSelectedItem())){
+                        int a = 0;
+                        int b = 0;
+                        for (char number : temp.split(";")[1].toCharArray()) {
+                            switch(number){
+                                case '0':
+                                tiles[a][b].setColor(Color.WHITE);
+                                break;
+                                case '1':
+                                tiles[a][b].setColor(Color.RED);
+                                break;
+                                case '2':
+                                tiles[a][b].setColor(Color.YELLOW);
+                                break;
+                                case '3':
+                                tiles[a][b].setColor(Color.GREY);
+                                break;
+                                default:
+                                System.out.println("no number!");
+                                break;
+                            }
+                            b++;
+                            if(b == (tiles.length)){
+                                b = 0;
+                                a++;
+                            }
+                            System.out.println(a);
+                            System.out.println(b);
+                        }
+                    }
+                }
+
+            } catch (IOException e) {
+                System.out.println("File could not be opened.");
+                e.printStackTrace();
+            }
         }
 
     }
