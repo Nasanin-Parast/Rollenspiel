@@ -31,6 +31,8 @@ import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import oberflaeche.controller.ControllerImpl;
 import oberflaeche.model.Knoten;
+import spielfigur.model.Charakter;
+import spielfigur.repository.CharakterRepository;
 
 public class View extends Application {
     private ControllerImpl controller = new ControllerImpl();
@@ -43,6 +45,10 @@ public class View extends Application {
     private State state = State.DELETERASTER;
     private GridPane largeGrid = new GridPane();
     private BorderPane topRow = new BorderPane();
+    private BorderPane rightColoumn = new BorderPane();
+    private FlowPane characters = new FlowPane();
+    private FlowPane monsters = new FlowPane();
+    private List<Character> playerCharacter = new ArrayList<Character>();
     private Tile tiles[][];
     private ArrayList<Knoten> list = new ArrayList<Knoten>();
     private Text sideText;
@@ -168,12 +174,31 @@ public class View extends Application {
             topRow.setLeft(buttons);
             topRow.setRight(mapSave);
 
+
+            CharakterRepository repo = new CharakterRepository();
+            List<Charakter> character = repo.getAll();
+            for(int i = 0; i < character.size(); i++){
+                CharacterButton temp = new CharacterButton(character.get(i).getName());
+                temp.setCharacter(character.get(i));
+                temp.setId("NotSelected");
+                temp.setOnMouseClicked(event -> {
+                    if(temp.getId() == "Selected"){
+                        temp.setId("NotSelected");
+                    }else{
+                        temp.setId("Selected");
+                    }
+                });;
+                characters.getChildren().add(temp);
+            }
+            rightColoumn.setTop(characters);
+            
             // root structure
             BorderPane root = new BorderPane();
             root.getStyleClass().add("root");
             root.setTop(topRow);
             root.setCenter(largeGrid);
             root.setLeft(sideText);
+            root.setRight(rightColoumn);
             root.setBottom(bottom);
 
             // Scaling
@@ -391,6 +416,21 @@ public class View extends Application {
             }
         }
 
-    }
+        private class CharacterButton extends Button{
+            private Charakter characterB;
 
+            public CharacterButton(String name){
+                super(name);
+            }
+
+            public void setCharacter(Charakter character){
+                characterB = character;
+            }
+
+            public Charakter getCharacter(){
+                return characterB;
+            }
+        }
+        
+    }
 
