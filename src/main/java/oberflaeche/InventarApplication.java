@@ -1,9 +1,8 @@
 package oberflaeche;
 
+import gegenstand.controller.GegenstaendeController;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import oberflaeche.InventarView;
-import spielfigur.controller.GegenstaendeController;
 
 public class InventarApplication extends Application {
     @Override

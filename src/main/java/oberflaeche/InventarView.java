@@ -1,17 +1,37 @@
 package oberflaeche;
 
+import gegenstand.Amulett;
+import gegenstand.Gegenstand;
+import gegenstand.controller.GegenstaendeController;
+import gegenstand.ruestung.Kettenpanzer;
+import gegenstand.ruestung.Lederruestung;
+import gegenstand.ruestung.Schild;
+import gegenstand.ruestung.Schuppenpanzer;
+import gegenstand.waffe.*;
+import inventar.Inventar;
+import inventar.InventarController;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.WindowEvent;
-import spielfigur.controller.GegenstaendeController;
+import javafx.stage.Stage;
+
+import javafx.scene.image.ImageView;
+
+import java.util.*;
+
 
 public class InventarView {
     private GegenstaendeController controller;
@@ -33,49 +53,57 @@ public class InventarView {
     private Image gift;
     private Image unsichtbarkeitTrank;
 
-    private ChoiceBox<Integer> ruestungBox;
-    private ChoiceBox<Integer> waffeBox;
-    private ChoiceBox<Integer> artefakteBox;
-    private ChoiceBox<Integer> magischBox;
-    private ChoiceBox<Integer> traenkeBox;
+
+    private ImageView imageview;
+
+    private ChoiceBox<String> ruesstungBox;
+    private ChoiceBox<String> waffeBox;
+    private ChoiceBox<String> artefakteBox;
+    private ChoiceBox<String> magischBox;
+    private ChoiceBox<String> traenkeBox;
     private Label artefakte;
-    private Label maisch;
+    private Label magisch;
     private Label waffe;
     private Label ruestung;
     private Label traenke;
 
-    private ImageView artefakteView;
-    private ImageView ausruestungView;
+    private ImageView imageName;
+    private ImageView auswirkungView;
     Scene scene;
-    RadioButton normalButton;
-    RadioButton magischButton;
-    RadioButton traenkeButton;
+    RadioButton useButton;
+    RadioButton wearButton;
     Button abbrechenButton;
+    RadioButton unsichtbarButton;
+    RadioButton nichtAngreifbarButton;
+    ToggleGroup auswirkungGroup;
+    ToggleGroup anwendungGroup;
+    Alert alert;
+    ButtonType yesButton;
+    ButtonType noButton;
+    InventarController con;
+    Label klasse;
+    Label preis;
+    Label gewicht;
+    Label staerke;
+    TilePane tilepane;
+
 
     public InventarView(GegenstaendeController controller) {
         this.controller = controller;
         erstelleFenster();
-        erstelleArtefakteAuswahl();
-        addArtefakteAuswahlEventHandler();
+        anwendungAuswirkung();
+        zeigeInventar();
+        addGegenstaendeEventHandler();
+        createEigenschaftenanzeige();
 
         abbrechenButton = new Button("Abbrechen");
-        grid.add(abbrechenButton, 4, 14);
-        scene = new Scene(grid, 800, 600);
-    }
+        abbrechenButton.setId("abbrechen");
+        abbrechenButton.setOnMouseClicked(e -> abbrechen());
+        grid.add(abbrechenButton, 6, 10);
 
-    private void addArtefakteAuswahlEventHandler() {
-        normalButton.setOnMouseClicked(event -> {
-            controller.setGegenstaendeKlasse("Normal");
-            //artefakteView.setImage();
-        });
-        magischButton.setOnMouseClicked(event -> {
-            controller.setGegenstaendeKlasse("Magisch");
-            //artefakteView.setImage();
-        });
-        traenkeButton.setOnMouseClicked(event -> {
-            controller.setGegenstaendeKlasse("Tränke");
-            //artefakteView.setImage();
-        });
+        scene = new Scene(grid, 900, 800);
+
+
     }
 
     public Scene getScene() {
@@ -84,59 +112,56 @@ public class InventarView {
 
     private void erstelleFenster() {
         grid = new GridPane();
-        grid.setAlignment(Pos.TOP_CENTER);
+        tilepane = new TilePane();
+        grid.setAlignment(Pos.TOP_LEFT);
+        tilepane.setAlignment(Pos.BOTTOM_LEFT);
+        tilepane.setPadding(new Insets(10, 10, 10, 10));
+        tilepane.setHgap(10);
+        tilepane.setVgap(10);
+        //(top/right/bottom/left)
         grid.setPadding(new Insets(20.0f, 40.0f, 60.0f, 70.0f));
         grid.setVgap(3);
     }
 
-    private void erstelleArtefakteAuswahl() {
-        Text artefakteText = new Text("Artefakte");
-        artefakteText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        Label label = new Label();
-        label.setPadding(new Insets(0, 0, 0, 140));
-        grid.add(label, 2, 0);
-        artefakteView = new ImageView();
-        // artefakteView.setImage();
-        grid.add(artefakteView, 3, 0, 1, 5);
+    private void anwendungAuswirkung() {
+        Text anwendungText = new Text("Anwendung");
+        anwendungText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        grid.add(anwendungText, 10, 4);
 
-        ausruestungView = new ImageView();
-        grid.add(ausruestungView, 3, 0, 1, 5);
+        anwendungGroup = new ToggleGroup();
+        useButton = new RadioButton("use");
+        useButton.setToggleGroup(anwendungGroup);
+        useButton.setPadding(new Insets(10, 0, 0, 0));
+        grid.add(useButton, 10, 5);
 
-        ToggleGroup artefakteGroup = new ToggleGroup();
-        RadioButton normalButton = new RadioButton("Normal");
-        normalButton.setToggleGroup(artefakteGroup);
-        normalButton.setPadding(new Insets(7, 0, 0, 10));
-        grid.add(normalButton, 0, 1);
+        wearButton = new RadioButton("wear");
+        wearButton.setToggleGroup(anwendungGroup);
+        wearButton.setPadding(new Insets(5, 0, 0, 0));
+        grid.add(wearButton, 10, 6);
 
-        RadioButton magischButton = new RadioButton("Magisch");
-        magischButton.setToggleGroup(artefakteGroup);
-        magischButton.setPadding(new Insets(0, 0, 0, 10));
-        grid.add(magischButton, 0, 2);
+        Text auswirkungText = new Text("Auswirkung");
+        auswirkungText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        grid.add(auswirkungText, 10, 0);
 
-        RadioButton traenkeButton = new RadioButton("Tränke");
-        traenkeButton.setToggleGroup(artefakteGroup);
-        traenkeButton.setPadding(new Insets(0, 0, 20, 10));
-        grid.add(traenkeButton, 0, 3);
+        auswirkungGroup = new ToggleGroup();
+        nichtAngreifbarButton = new RadioButton("Nicht angreifbar");
+        nichtAngreifbarButton.setToggleGroup(auswirkungGroup);
+        nichtAngreifbarButton.setPadding(new Insets(10, 0, 0, 0));
+        grid.add(nichtAngreifbarButton, 10, 1);
 
-        ToggleGroup ausruestungGroup = new ToggleGroup();
-        RadioButton ruesstungButton = new RadioButton("Rüsstung");
-        ruesstungButton.setToggleGroup(ausruestungGroup);
-        ruesstungButton.setPadding(new Insets(7, 0, 0, 10));
-        grid.add(ruesstungButton, 0, 1);
-
-        RadioButton waffeButton = new RadioButton("Waffe");
-        waffeButton.setToggleGroup(ausruestungGroup);
-        waffeButton.setPadding(new Insets(0, 0, 0, 10));
-        grid.add(waffeButton, 0, 2);
+        unsichtbarButton = new RadioButton("unsichtbar");
+        unsichtbarButton.setToggleGroup(auswirkungGroup);
+        unsichtbarButton.setPadding(new Insets(5, 0, 0, 0));
+        grid.add(unsichtbarButton, 10, 2);
     }
 
-    public void abbrechen(WindowEvent event) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+    public void abbrechen() {
+        alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning");
         alert.setHeaderText("Would You Like To Save Your Console Output?");
         alert.setContentText("Please choose an option.");
-        ButtonType yesButton = new ButtonType("Yes");
-        ButtonType noButton = new ButtonType("No");
+        yesButton = new ButtonType("Yes");
+        noButton = new ButtonType("No");
         for (ButtonType bt : alert.getDialogPane().getButtonTypes()) {
             if (bt.getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
                 Button cancelButton = (Button) alert.getDialogPane().lookupButton(bt);
@@ -145,6 +170,130 @@ public class InventarView {
             }
         }
     }
+
+    private void zeigeInventar() {
+        Text inventarText = new Text("Inventar");
+        inventarText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        grid.add(inventarText, 1, 0, 8, 1);
+        con = new InventarController();
+        con.create();
+        List<Gegenstand> gegenstand = con.getGegenstaende(1);
+        ObservableList<String> observableListe = FXCollections.observableList(con.getGegenstaende(1)
+                .stream().map(e -> e.getClass().getSimpleName()).toList());
+        tilepane = new TilePane();
+        tilepane.setPadding(new Insets(15));
+        tilepane.setHgap(5);
+        tilepane.setVgap(5);
+        List<Gegenstand> alle = con.getGegenstaende(1);
+        for (int i = 0; i < 15; i++) {
+            Image image = new Image("file:src/main/resources/image/banner.png");
+            if (i < alle.size()) {
+                if (alle.get(i) instanceof Amulett) {
+                    image = new Image("file:src/main/resources/image/amulett.png");
+                } else if (alle.get(i) instanceof Kettenpanzer) {
+                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                }else if (alle.get(i) instanceof Lederruestung){
+                    image = new Image("file:src/main/resources/image/elf.png");
+                }else if (alle.get(i) instanceof Schuppenpanzer){
+                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                }else if (alle.get(i) instanceof Schild){
+                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                }else if (alle.get(i) instanceof Dolch){
+                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                }else if (alle.get(i) instanceof Wurfpfeil){
+                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                }else if (alle.get(i) instanceof Handaxt){
+                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                }else if (alle.get(i) instanceof Streitaxt){
+                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                }else if (alle.get(i) instanceof Speer){
+                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                }else if (alle.get(i) instanceof Schwert){
+                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                }else if (alle.get(i) instanceof Degen){
+                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                }else if (alle.get(i) instanceof BogenMitPfeilen){
+                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                }
+            }
+            ImageView imageView = new ImageView(image);
+            tilepane.getChildren().add(imageView);
+            imageView.setPickOnBounds(true);
+            imageView.setOnMouseClicked((MouseEvent e) -> {
+                System.out.println("Clicked!"); // change functionality
+            });
+        }
+        grid.add(tilepane, 0, 20, 20, 1);
+    }
+    private void createEigenschaftenanzeige() {
+        Label aklasse = new Label("Klasse");
+        aklasse.setPadding(new Insets(0, 50, 0, 40));
+        grid.add(aklasse, 3, 6);
+        klasse= new Label("-");
+        grid.add(klasse, 4, 6);
+
+        Label strAnzeige = new Label("Preis");
+        strAnzeige.setPadding(new Insets(0, 50, 0, 40));
+        grid.add(strAnzeige, 3, 7);
+        preis = new Label("-");
+        grid.add(preis, 4, 7);
+
+        Label konAnzeige = new Label("Gewicht in Pfund");
+        konAnzeige.setPadding(new Insets(0, 50, 0, 40));
+        grid.add(konAnzeige, 3, 8);
+        gewicht = new Label("-");
+        grid.add(gewicht, 4, 8);
+
+        Label wisAnzeige = new Label("Stärke");
+        wisAnzeige.setPadding(new Insets(0, 50, 0, 40));
+        grid.add(wisAnzeige, 3, 9);
+        staerke = new Label("-");
+        grid.add(staerke, 4, 9);
+
+    }
+
+
+
+
+    private void addGegenstaendeEventHandler() {
+
+//        artefakteBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, artefakte) -> {
+//            controller.setArtefakte((String) artefakte);
+//            updateArtefakte();
+//        });
+//        magischBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, magisch) -> {
+//            controller.setMagisch((String) magisch);
+//            updateMagisch();
+//        });
+//        waffeBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, waffe) -> {
+//            controller.setWaffe((String) waffe);
+//            updateWaffe();
+//        });
+//        ruesstungBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, ruestung) -> {
+//            controller.setRuesstung((String) ruestung);
+//            updateRuesstung();
+//        });
+//        traenkeBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, traenke) -> {
+//            controller.setTraenke((String) traenke);
+//            updateTraenke();
+//        });
+    }
+
+    private void updateTraenke() {
+    }
+
+    private void updateRuesstung() {
+    }
+
+    private void updateWaffe() {
+    }
+
+    private void updateMagisch() {
+    }
+
+    private void updateArtefakte() {
+    }
+
 
 }
 
