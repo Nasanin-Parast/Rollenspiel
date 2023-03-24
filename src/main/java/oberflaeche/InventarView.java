@@ -186,34 +186,34 @@ public class InventarView {
         tilepane.setVgap(5);
         List<Gegenstand> alle = con.getGegenstaende(1);
         for (int i = 0; i < 15; i++) {
-            Image image = new Image("file:src/main/resources/image/banner.png");
+            Image image = new Image("file:src/main/resources/image/gegenstand/emptySlot.png");
             if (i < alle.size()) {
                 if (alle.get(i) instanceof Amulett) {
-                    image = new Image("file:src/main/resources/image/amulett.png");
+                    image = new Image("file:src/main/resources/image/gegenstand/amulett.png");
                 } else if (alle.get(i) instanceof Kettenpanzer) {
-                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                    image = new Image("file:src/main/resources/image/gegenstand/kettenpanzer.png");
                 }else if (alle.get(i) instanceof Lederruestung){
-                    image = new Image("file:src/main/resources/image/elf.png");
+                    image = new Image("file:src/main/resources/image/gegenstand/lederruestung.png");
                 }else if (alle.get(i) instanceof Schuppenpanzer){
-                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                    image = new Image("file:src/main/resources/image/gegenstand/schuppenpanzer.png");
                 }else if (alle.get(i) instanceof Schild){
-                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                    image = new Image("file:src/main/resources/image/gegenstand/schild.png");
                 }else if (alle.get(i) instanceof Dolch){
-                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                    image = new Image("file:src/main/resources/image/gegenstand/dolch.png");
                 }else if (alle.get(i) instanceof Wurfpfeil){
-                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                    image = new Image("file:src/main/resources/image/gegenstand/wurfpfeil.png");
                 }else if (alle.get(i) instanceof Handaxt){
-                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                    image = new Image("file:src/main/resources/image/gegenstand/handaxt.png");
                 }else if (alle.get(i) instanceof Streitaxt){
-                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                    image = new Image("file:src/main/resources/image/gegenstand/streitaxt.png");
                 }else if (alle.get(i) instanceof Speer){
-                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                    image = new Image("file:src/main/resources/image/gegenstand/speer.png");
                 }else if (alle.get(i) instanceof Schwert){
-                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                    image = new Image("file:src/main/resources/image/gegenstand/schwert.png");
                 }else if (alle.get(i) instanceof Degen){
-                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                    image = new Image("file:src/main/resources/image/gegenstand/degen.png");
                 }else if (alle.get(i) instanceof BogenMitPfeilen){
-                    image = new Image("file:src/main/resources/image/kettenpanzer.png");
+                    image = new Image("file:src/main/resources/image/gegenstand/bogen.png");
                 }
             }
             ImageView imageView = new ImageView(image);
