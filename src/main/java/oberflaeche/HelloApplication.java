@@ -25,6 +25,10 @@ public class HelloApplication extends Application {
 
     private StartView startView;
 
+    public static void main(String[] args){
+        HelloApplication.launch(args);
+    }
+
     @Override
     public void start(Stage stage) {
         this.stage = stage;

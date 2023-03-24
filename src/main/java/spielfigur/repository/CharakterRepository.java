@@ -15,7 +15,7 @@ public class CharakterRepository {
         try {
             List<Charakter> alle = getAll();
             alle.add(charakter);
-            FileOutputStream file = new FileOutputStream("src/main/resources/character/character.txt");
+            FileOutputStream file = new FileOutputStream("./Rollenspiel/src/main/resources/character/character.txt");
             ObjectOutputStream output;
             output = new ObjectOutputStream(file);
             for (Charakter c : alle) {
@@ -43,7 +43,7 @@ public class CharakterRepository {
                     break;
                 }
             }
-            FileOutputStream file = new FileOutputStream("src/main/resources/character/character.txt");
+            FileOutputStream file = new FileOutputStream("./Rollenspiel/src/main/resources/character/character.txt");
             ObjectOutputStream output;
             output = new ObjectOutputStream(file);
             for (Charakter c : alle) {
@@ -61,7 +61,7 @@ public class CharakterRepository {
         List<Charakter> charaktere = new ArrayList<>();
         ObjectInputStream input = null;
         try {
-            FileInputStream file = new FileInputStream("src/main/resources/character/character.txt");
+            FileInputStream file = new FileInputStream("./Rollenspiel/src/main/resources/character/character.txt");
             input = new ObjectInputStream(file);
             Charakter charakter = (Charakter) input.readObject();
             while (charakter != null) {
@@ -69,10 +69,13 @@ public class CharakterRepository {
                 charakter = (Charakter) input.readObject();
             }
         } catch (EOFException e) {
+            System.out.println("EOF Detected");
             input.close();
         } catch (IOException e) {
+            System.out.println("IOE Detected");
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
+            System.out.println("ClassNotFound Detected");
             throw new RuntimeException(e);
         } finally {
             return charaktere;

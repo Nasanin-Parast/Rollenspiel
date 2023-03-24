@@ -20,7 +20,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -177,6 +176,7 @@ public class View extends Application {
 
             CharakterRepository repo = new CharakterRepository();
             List<Charakter> character = repo.getAll();
+            System.out.println(character.size());
             for(int i = 0; i < character.size(); i++){
                 CharacterButton temp = new CharacterButton(character.get(i).getName());
                 temp.setCharacter(character.get(i));
