@@ -10,6 +10,8 @@ import spielfigur.builder.SpielfigurFactory;
 import spielfigur.model.Charakter;
 import spielfigur.util.RandomUtils;
 
+import static javax.management.Query.times;
+import static jdk.internal.org.objectweb.asm.util.CheckClassAdapter.verify;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

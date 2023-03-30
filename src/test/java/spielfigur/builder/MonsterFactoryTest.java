@@ -18,9 +18,7 @@ public class MonsterFactoryTest {
 
     @DisplayName("Should successfuly create troll")
     @Test
-    void testCreateTrollSuccess() {
-        assertTrue(MonsterFactory.createMonster(TROLL) instanceof Troll);
-    }
+    void testCreateTrollSuccess(){assertTrue(MonsterFactory.createMonster(TROLL) instanceof Troll);}
 
     @DisplayName("Should successfuly create ork")
     @Test
