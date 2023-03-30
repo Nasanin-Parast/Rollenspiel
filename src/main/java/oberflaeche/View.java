@@ -129,7 +129,7 @@ public class View extends Application {
                                                     unselectButton();
                                                     wandLoeschenButton.setId("wandLoeschenSelected");
                                                 } );
-            
+            buttons.setMinWidth(1000);
 
             buttonArray[0] = deleteRaster;
             buttonArray[1] = gegenstandPlatzierenButton;
@@ -156,7 +156,7 @@ public class View extends Application {
                 System.out.println("File could not be opened.");
                 e.printStackTrace();
             }
-            maps.maxWidth(10);
+            maps.minWidth(500);
 
             mapArray[0] = save;
             mapArray[1] = load;
@@ -164,11 +164,6 @@ public class View extends Application {
             mapSave.getChildren().addAll(save, load, maps);
 
             buttons.getChildren().addAll(deleteRaster, gegenstandPlatzierenButton, monsterPlatzierenButton, wandPlatzierenButton, wandLoeschenButton);
-            sideText = new Text("Willkommen zur Gamemaster UI. In der Mitte des Fenster befindet sich das Spielfeld welches nun editiert werden kann. Dazu wählt man aus den oberen Buttons die Aktion aus und klickt einfach auf die entsprechenden Felder welche man abändern möchte.");
-            sideText.setFont(new Font(32));
-            sideText.prefWidth(400);
-            sideText.setWrappingWidth(377);
-            VBox bottom = new VBox();
 
             topRow.setLeft(buttons);
             topRow.setRight(mapSave);
@@ -197,9 +192,7 @@ public class View extends Application {
             root.getStyleClass().add("root");
             root.setTop(topRow);
             root.setCenter(largeGrid);
-            root.setLeft(sideText);
             root.setRight(rightColoumn);
-            root.setBottom(bottom);
 
             // Scaling
             Scale scale = new Scale(1, 1, 0, 0);

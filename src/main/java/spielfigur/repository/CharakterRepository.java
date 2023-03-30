@@ -43,7 +43,7 @@ public class CharakterRepository {
                     break;
                 }
             }
-            FileOutputStream file = new FileOutputStream("./Rollenspiel/src/main/resources/character/character.txt");
+            FileOutputStream file = new FileOutputStream("../src/main/resources/character/character.txt");
             ObjectOutputStream output;
             output = new ObjectOutputStream(file);
             for (Charakter c : alle) {
@@ -61,7 +61,7 @@ public class CharakterRepository {
         List<Charakter> charaktere = new ArrayList<>();
         ObjectInputStream input = null;
         try {
-            FileInputStream file = new FileInputStream("./Rollenspiel/src/main/resources/character/character.txt");
+            FileInputStream file = new FileInputStream("C:/Users/stefa/OneDrive/Desktop/Lernfeld 12 Projekt/Rollenspiel/src/main/resources/character/character.txt");
             input = new ObjectInputStream(file);
             Charakter charakter = (Charakter) input.readObject();
             while (charakter != null) {
