@@ -1,10 +1,8 @@
 package inventar;
 
 import gegenstand.*;
-import gegenstand.ruestung.Kettenpanzer;
-import gegenstand.ruestung.Lederruestung;
-import gegenstand.ruestung.Schild;
-import gegenstand.ruestung.Schuppenpanzer;
+import gegenstand.falle.Stein;
+import gegenstand.ruestung.*;
 import gegenstand.waffe.*;
 import gegenstand.waffe.*;
 
@@ -41,7 +39,10 @@ public class InventarController {
         inventar.add(new Speer());
         inventar.add(new Schwert());
         inventar.add(new Degen());
+        inventar.add(new KeineWaffe());
+        inventar.add(new KeineRuestung());
         inventare.put(1, inventar);
+
     }
 
 }

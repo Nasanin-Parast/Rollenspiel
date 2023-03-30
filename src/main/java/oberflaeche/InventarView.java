@@ -5,10 +5,8 @@ import gegenstand.Artefakt;
 import gegenstand.Gegenstand;
 import gegenstand.Ring;
 import gegenstand.controller.GegenstaendeController;
-import gegenstand.ruestung.Kettenpanzer;
-import gegenstand.ruestung.Lederruestung;
-import gegenstand.ruestung.Schild;
-import gegenstand.ruestung.Schuppenpanzer;
+import gegenstand.falle.Stein;
+import gegenstand.ruestung.*;
 import gegenstand.waffe.*;
 import inventar.Inventar;
 import inventar.InventarController;
@@ -36,13 +34,7 @@ public class InventarView {
     private GegenstaendeController controller;
     private GridPane grid;
     Scene scene;
-    RadioButton useButton;
-    RadioButton wearButton;
     Button abbrechenButton;
-    RadioButton unsichtbarButton;
-    RadioButton nichtAngreifbarButton;
-    ToggleGroup auswirkungGroup;
-    ToggleGroup anwendungGroup;
     Alert alert;
     ButtonType yesButton;
     ButtonType noButton;
@@ -54,25 +46,22 @@ public class InventarView {
     Label geschosse;
     TilePane tilepane;
     Label anwendung;
-    Label auswirkung;
 
 
     public InventarView(GegenstaendeController controller) {
         this.controller = controller;
         erstelleFenster();
-        //anwendungAuswirkung();
         zeigeInventar();
         createEigenschaftenanzeige();
 
         abbrechenButton = new Button("Abbrechen");
         abbrechenButton.setId("abbrechen");
         grid.add(abbrechenButton, 20, 10);
+        //grid.setBackground();
+        grid.setStyle("-fx-background-color: palegreen;");
         abbrechenButton.setMaxSize(500,500);
         abbrechenButton.setOnMouseClicked(e -> abbrechen());
         scene = new Scene(grid, 800, 700);
-
-        BackgroundFill background_fill = new BackgroundFill(Color.PINK,
-                CornerRadii.EMPTY, Insets.EMPTY);
     }
 
     public Scene getScene() {
@@ -90,34 +79,6 @@ public class InventarView {
         grid.setPadding(new Insets(20.0f, 40.0f, 60.0f, 70.0f));
         grid.setVgap(3);
     }
-
-//    private void anwendungAuswirkung() {
-//        Text anwendungText = new Text("Anwendung");
-//        anwendungText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-//        grid.add(anwendungText, 10, 4);
-//
-//        anwendungGroup = new ToggleGroup();
-//        useButton = new RadioButton("use");
-//        useButton.setToggleGroup(anwendungGroup);
-//        grid.add(useButton, 10, 5);
-//
-//        wearButton = new RadioButton("wear");
-//        wearButton.setToggleGroup(anwendungGroup);
-//        grid.add(wearButton, 10, 6);
-//
-//        Text auswirkungText = new Text("Auswirkung");
-//        auswirkungText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-//        grid.add(auswirkungText, 10, 0, 3, 1);
-//
-//        auswirkungGroup = new ToggleGroup();
-//        nichtAngreifbarButton = new RadioButton("Nicht angreifbar");
-//        nichtAngreifbarButton.setToggleGroup(auswirkungGroup);
-//        grid.add(nichtAngreifbarButton, 10, 1);
-//
-//        unsichtbarButton = new RadioButton("unsichtbar");
-//        unsichtbarButton.setToggleGroup(auswirkungGroup);
-//        grid.add(unsichtbarButton, 10, 2);
-//    }
 
     public void abbrechen() {
         alert = new Alert(Alert.AlertType.WARNING);
@@ -137,8 +98,8 @@ public class InventarView {
 
     private void zeigeInventar() {
         Text inventarText = new Text("Inventar");
-        inventarText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        grid.add(inventarText, 1, 0, 5, 1);
+        inventarText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
+        grid.add(inventarText, 1, 0);
         con = new InventarController();
         con.create();
         List<Gegenstand> gegenstand = con.getGegenstaende(1);
@@ -149,8 +110,8 @@ public class InventarView {
         tilepane.setHgap(5);
         tilepane.setVgap(5);
         List<Gegenstand> alle = con.getGegenstaende(1);
-        for (int i = 0; i < 13; i++) {
-            Image image = new Image("file:src/main/resources/image/elf.png");
+        for (int i = 0; i < 15; i++) {
+            Image image = new Image("file:src/main/resources/image/emptySlot.png");
             if (i < alle.size()) {
                 if (alle.get(i) instanceof Amulett) {
                     image = new Image("file:src/main/resources/image/gegenstand/amulett.png");
@@ -179,8 +140,12 @@ public class InventarView {
                 } else if (alle.get(i) instanceof BogenMitPfeilen) {
                     image = new Image("file:src/main/resources/image/gegenstand/bogen.png");
                 } else if (alle.get(i) instanceof Ring) {
+                    image = new Image("file:src/main/resources/image/gegenstand/Ring.png");
+                }else if (alle.get(i) instanceof KeineWaffe) {
                     image = new Image("file:src/main/resources/image/gegenstand/emptySlot.png");
-                }
+                }else if (alle.get(i) instanceof KeineRuestung) {
+                    image = new Image("file:src/main/resources/image/gegenstand/emptySlot.png");
+            }
             }
             ImageView imageView;
             if (i < alle.size()) {
@@ -196,53 +161,53 @@ public class InventarView {
 
     private void createEigenschaftenanzeige() {
         Label aklasse = new Label("Rüstungsklasse");
-        aklasse.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        aklasse.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
         aklasse.setPadding(new Insets(0));
         grid.add(aklasse, 3, 2);
         klasse = new Label("-");
-        klasse.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        klasse.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
         klasse.setPadding(new Insets(0, 100, 0, 0));
         grid.add(klasse, 5, 2);
 
         Label aPreis = new Label("Preis");
-        aPreis.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        aPreis.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
         aPreis.setPadding(new Insets(0));
         grid.add(aPreis, 3, 3);
         preis = new Label("-");
-        preis.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        preis.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
         grid.add(preis, 5, 3);
 
         Label aGewicht = new Label("Gewicht in Pfund");
-        aGewicht.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        aGewicht.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
         aGewicht.setPadding(new Insets(0));
         grid.add(aGewicht, 3, 4);
         gewicht = new Label("-");
-        gewicht.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        gewicht.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
         grid.add(gewicht, 5, 4);
 
-        Label aStärke = new Label("Stärke");
-        aStärke.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
-        aStärke.setPadding(new Insets(0));
-        grid.add(aStärke, 3, 5);
+        Label aStaerke = new Label("Stärke");
+        aStaerke.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
+        aStaerke.setPadding(new Insets(0));
+        grid.add(aStaerke, 3, 5);
         staerke = new Label("-");
-        staerke.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        staerke.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
         grid.add(staerke, 5, 5);
 
         Label anzahlGeschosse = new Label("Anzahl Geschosse");
-        anzahlGeschosse.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        anzahlGeschosse.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
         anzahlGeschosse.setPadding(new Insets(0));
         grid.add(anzahlGeschosse, 3, 6);
         geschosse = new Label("-");
-        geschosse.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        geschosse.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
         grid.add(geschosse, 5, 6);
 
-        anwendung = new Label("Anwendung");
-        anwendung.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
-        anwendung.setPadding(new Insets(0));
-        grid.add(anwendung, 3, 7);
-        auswirkung = new Label("-");
-        auswirkung.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
-        grid.add(auswirkung, 5, 7);
+        Label aAnwendung = new Label("Anwendung");
+        aAnwendung.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
+        aAnwendung.setPadding(new Insets(0));
+        grid.add(aAnwendung, 3, 7);
+        anwendung = new Label("-");
+        anwendung.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
+        grid.add(anwendung, 5, 7);
     }
 
     private class GegenstandEventhaendler extends ImageView {
@@ -256,7 +221,7 @@ public class InventarView {
                 klasse.setText(gegenstand.getClass().getSimpleName());
                 preis.setText(Double.toString(gegenstand.getPreis()));
                 gewicht.setText(Double.toString(gegenstand.getGewicht()));
-                auswirkung.setText(gegenstand.getFormDerAnwendung());
+                anwendung.setText(gegenstand.getFormDerAnwendung());
             });
         }
     }
