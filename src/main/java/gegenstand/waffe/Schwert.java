@@ -2,7 +2,7 @@ package gegenstand.waffe;
 
 public class Schwert extends Waffe {
 
-    public Schwert(char schadenUndAngriffModifizierer, double preis, int gewichtInPfund, int einsetzbarBisSpielfeld) {
-        super(schadenUndAngriffModifizierer, preis, gewichtInPfund, einsetzbarBisSpielfeld);
+    public Schwert() {
+        super('S', 8, 15., 3.);
     }
 }

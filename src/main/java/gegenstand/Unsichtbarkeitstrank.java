@@ -2,16 +2,7 @@ package gegenstand;
 
 public class Unsichtbarkeitstrank extends Trank {
 
-    public Unsichtbarkeitstrank(String formDerAnwendung) {
-        super(formDerAnwendung);
+    public Unsichtbarkeitstrank() {
+        super(14.);
     }
-
-    @Override
-    //Unsichtbar - nicht angreifbar - schleichen und verstecken erfolgreich
-    public int Auswirkung(int lebenspuenkteAktuell) {
-
-        System.out.println("Unsichtbar - nicht angreifbar - schleichen und verstecken erfolgreich");
-        return lebenspuenkteAktuell;
-    }
-
 }

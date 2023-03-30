@@ -16,11 +16,6 @@ public class GegenstaendeController {
         return null;
     }
 
-    public void setArtefakte(String artefakte) {
-        getGegenstaende().interagiereMitGegenstand();
-
-    }
-
     public void setMagisch(String magisch) {
 //        charakter.useGegenstand(gegenstand);
     }

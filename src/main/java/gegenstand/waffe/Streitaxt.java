@@ -2,7 +2,7 @@ package gegenstand.waffe;
 
 public class Streitaxt extends Waffe {
 
-    public Streitaxt(char schadenUndAngriffModifizierer, double preis, int gewichtInPfund, int einsetzbarBisSpielfeld) {
-        super(schadenUndAngriffModifizierer, preis, gewichtInPfund, einsetzbarBisSpielfeld);
+    public Streitaxt() {
+        super('S', 6, 10., 4.);
     }
 }
