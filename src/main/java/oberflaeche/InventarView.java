@@ -1,35 +1,30 @@
 package oberflaeche;
 
 import gegenstand.Amulett;
-import gegenstand.Artefakt;
 import gegenstand.Gegenstand;
 import gegenstand.Ring;
 import gegenstand.controller.GegenstaendeController;
-import gegenstand.falle.Stein;
 import gegenstand.ruestung.*;
 import gegenstand.waffe.*;
-import inventar.Inventar;
 import inventar.InventarController;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.util.*;
-
+/**
+ * @author Nasanin Parast
+ */
 
 public class InventarView {
     private GegenstaendeController controller;
@@ -43,11 +38,8 @@ public class InventarView {
     Label klasse;
     Label preis;
     Label gewicht;
-    Label staerke;
-    Label geschosse;
     TilePane tilepane;
     Label anwendung;
-    Image background;
 
 
     public InventarView(GegenstaendeController controller) {
@@ -195,7 +187,7 @@ public class InventarView {
         gewicht.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
         gewicht.setTextFill(Color.web("#ffd700"));
         grid.add(gewicht, 8, 4);
-
+// Für weitere Eigenschaften
 //        Label aStaerke = new Label("Stärke");
 //        aStaerke.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
 //        aStaerke.setTextFill(Color.web("#ffd700"));
