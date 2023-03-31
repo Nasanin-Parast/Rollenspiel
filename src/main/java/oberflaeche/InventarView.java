@@ -1,16 +1,10 @@
 package oberflaeche;
 
-import gegenstand.Amulett;
 import gegenstand.Gegenstand;
-import gegenstand.Ring;
-import gegenstand.controller.GegenstaendeController;
 import gegenstand.artefakt.Amulett;
 import gegenstand.artefakt.Ring;
 import gegenstand.ruestung.*;
 import gegenstand.waffe.*;
-import inventar.InventarController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;

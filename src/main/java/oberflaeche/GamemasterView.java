@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -40,7 +41,7 @@ public class GamemasterView {
     private List<Character> playerCharacter = new ArrayList<Character>();
     private Tile tiles[][];
     private ArrayList<Knoten> list = new ArrayList<Knoten>();
-    private File file = new File("./Rollenspiel/Dateien/Save.txt");
+    private File file = new File("Dateien/Save.txt");
     private ObservableList<String> choiceList = FXCollections.observableArrayList("");
     private ChoiceBox<String> maps;
     private Button weiter;
@@ -176,10 +177,15 @@ public class GamemasterView {
             weiter = new Button("Weiter");
             weiter.setId("weiter");
             weiter.setOnMouseClicked(event -> {
-                for(int i = 0; i < character.size(); i++){
-                    if(character.get(i).get)
+                Charakter selectedCharakter = null;
+                ObservableList<Node> charakters = characters.getChildren();
+                for (int i = 0; i < character.size(); i++) {
+                    CharacterButton temp = (CharacterButton) charakters.get(i);
+                    if (temp.getId() == "Selected") {
+                        selectedCharakter = temp.getCharacter();
+                    }
                 }
-                app.startPlayerUI(tiles, selectedCharacter);
+                app.startPlayerUI(tiles, selectedCharakter);
             });
 
             // root structure

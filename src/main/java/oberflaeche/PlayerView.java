@@ -24,7 +24,7 @@ public class PlayerView {
     private FlowPane characters = new FlowPane();
     private Tile tiles[][] = new Tile[controller.getRowSize()][controller.getColumnSize()];
   
-        public PlayerView(Tile[][] tiles, Spielfigur character) {
+        public PlayerView(Tile[][] tiles, Charakter character) {
             final int breite = 1920;
             final int hoehe = 1080;
 
@@ -40,9 +40,6 @@ public class PlayerView {
                 CharacterButton charakter = new CharacterButton(character.getName());
                 charakter.setCharacter(character);
                 charakter.setId("NotSelected");
-                charakter.setOnMouseClicked(event -> {
-                    chara
-                });
             rightColoumn.setTop(characters);
             
             // root structure

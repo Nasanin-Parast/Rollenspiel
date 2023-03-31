@@ -70,10 +70,6 @@ public class CharakterErstellenView {
 
     public CharakterErstellenView(HelloApplication app, CharakterController controller) {
         this.app = app;
-    /**
-     * @author Raphael Gardemann
-     */
-    public CharakterErstellenView(CharakterController controller) {
         this.controller = controller;
         createGrid();
         createKlassenauswahl();
@@ -93,7 +89,6 @@ public class CharakterErstellenView {
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
         grid.setBackground(new Background(myBI));
-        scene = new Scene(grid, 600, 500);
 
         speichernButton.setOnMouseClicked(event -> {
             try {
