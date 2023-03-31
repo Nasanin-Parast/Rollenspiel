@@ -1,18 +1,12 @@
 package oberflaeche;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -23,17 +17,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
-import javafx.stage.Stage;
 import oberflaeche.controller.ControllerImpl;
 import oberflaeche.model.Knoten;
 import spielfigur.model.Charakter;
 import spielfigur.repository.CharakterRepository;
 
-public class View extends Application {
+public class GamemasterView {
     private ControllerImpl controller = new ControllerImpl();
     private FlowPane buttons = new FlowPane();
     private FlowPane mapSave = new FlowPane();
@@ -50,22 +40,23 @@ public class View extends Application {
     private List<Character> playerCharacter = new ArrayList<Character>();
     private Tile tiles[][];
     private ArrayList<Knoten> list = new ArrayList<Knoten>();
-    private Text sideText;
     private File file = new File("./Rollenspiel/Dateien/Save.txt");
     private ObservableList<String> choiceList = FXCollections.observableArrayList("");
-    ChoiceBox<String> maps;
+    private ChoiceBox<String> maps;
+    private Button weiter;
+    private HelloApplication app;
         private enum State {
             DELETERASTER, PLAZIEREGEGENSTAENDE, PLATZIEREMONSTER, WANDPLATZIEREN, TILELOESCHEN;
         }
 
-        @Override
-        public void start(Stage primaryStage) {
+        public GamemasterView(HelloApplication mainApp) {
+            app = mainApp;
             final int breite = 1920;
             final int hoehe = 1080;
             tiles = new Tile[controller.getRowSize()][controller.getColumnSize()];
             for (int r = 0; r < controller.getRowSize(); r++) {
                 for (int c = 0; c < controller.getColumnSize(); c++) {
-                    Tile tile = new Tile(Color.WHITE, r, c);
+                    Tile tile = new Tile(Color.GREY, r, c);
                     tiles[r][c] = tile;
                     largeGrid.add(tile, r, c);
                     tile.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -76,16 +67,14 @@ public class View extends Application {
                                     tile.setColor(Color.RED);
                                     break;
                                 case TILELOESCHEN:
-                                    tile.setColor(Color.WHITE);
+                                    tile.setColor(Color.GREY);
                                     break;
                                 case WANDPLATZIEREN:
-                                    tile.setColor(Color.GREY);
+                                    tile.setColor(Color.BLACK);
                                     break;
                                 case PLAZIEREGEGENSTAENDE:
                                     tile.setColor(Color.YELLOW);
                                     break;
-                                default:
-                                    tile.setColor(Color.WHITE);
                             }
                             mouseEvent.consume();
                         }
@@ -94,8 +83,6 @@ public class View extends Application {
             }
             largeGrid.setAlignment(Pos.CENTER);
             buttons.setMaxWidth(800);
-            
-            //buttons.setSpacing(10);
 
             // CSS and Buttons
             ToolButton deleteRaster = new ToolButton("Clear Raster");
@@ -168,7 +155,6 @@ public class View extends Application {
             topRow.setLeft(buttons);
             topRow.setRight(mapSave);
 
-
             CharakterRepository repo = new CharakterRepository();
             List<Charakter> character = repo.getAll();
             System.out.println(character.size());
@@ -186,13 +172,23 @@ public class View extends Application {
                 characters.getChildren().add(temp);
             }
             rightColoumn.setTop(characters);
-            
+
+            weiter = new Button("Weiter");
+            weiter.setId("weiter");
+            weiter.setOnMouseClicked(event -> {
+                for(int i = 0; i < character.size(); i++){
+                    if(character.get(i).get)
+                }
+                app.startPlayerUI(tiles, selectedCharacter);
+            });
+
             // root structure
             BorderPane root = new BorderPane();
-            root.getStyleClass().add("root");
+            //root.getStyleClass().add("root");
             root.setTop(topRow);
             root.setCenter(largeGrid);
             root.setRight(rightColoumn);
+            root.setBottom(weiter);
 
             // Scaling
             Scale scale = new Scale(1, 1, 0, 0);
@@ -204,10 +200,6 @@ public class View extends Application {
             scene = new Scene(root, 1090, 600);
             String css = this.getClass().getResource("/application.css").toExternalForm();
             scene.getStylesheets().add(css);
-            primaryStage.setResizable(true);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-
         }
 
         private void unselectButton() {
@@ -242,8 +234,8 @@ public class View extends Application {
         private EventHandler<? super MouseEvent> deleteRaster(GridPane grid) {
             for (int r = 0; r < grid.getRowCount(); r++) {
                 for (int c = 0; c < grid.getColumnCount(); c++) {
-                    ((Tile) (grid.getChildren().get(r * 20 + c))).border.setFill(Color.WHITE);
-                    ((Tile) (grid.getChildren().get(r * 20 + c))).color = Color.WHITE;
+                    ((Tile) (grid.getChildren().get(r * 20 + c))).border.setFill(Color.GREY);
+                    ((Tile) (grid.getChildren().get(r * 20 + c))).color = Color.GREY;
                 }
             }
             return null;
@@ -303,29 +295,6 @@ public class View extends Application {
             }
         }
 
-        public class Tile extends StackPane {
-            Rectangle border = new Rectangle(45, 45);
-            Color color;
-
-            public Tile(Color color, int r, int c) {
-                this.color = color;
-                border.setFill(color);
-                border.setStroke(Color.GREY);
-                this.getChildren().add(border);
-
-            }
-
-            public void setColor(Color color) {
-                this.color = color;
-                border.setFill(this.color);
-            }
-
-            public Color getColor() {
-                return color;
-            }
-
-        }
-
         public void saveMap(){
             int i = 1;
             try (Scanner in = new Scanner(file)) {
@@ -337,12 +306,13 @@ public class View extends Application {
                 System.out.println("File could not be opened.");
                 e.printStackTrace();
             }
+            String tempMap = "Map " + i;
             try (FileOutputStream out = new FileOutputStream(file, true)) {
-                out.write(("Map " + i + ";").getBytes());
+                out.write((tempMap + ";").getBytes());
                 String temp = "";
                 for (int r = 0; r < controller.getRowSize(); r++) {
                     for (int c = 0; c < controller.getColumnSize(); c++) {
-                        if(tiles[r][c].getColor() == Color.WHITE){
+                        if(tiles[r][c].getColor() == Color.GREY){
                             temp = temp + "0";
                             out.write("0".getBytes());
                         } else if(tiles[r][c].getColor() == Color.RED){
@@ -351,7 +321,7 @@ public class View extends Application {
                         } else if(tiles[r][c].getColor() == Color.YELLOW){
                             temp = temp + "2";
                             out.write("2".getBytes());
-                        } else if(tiles[r][c].getColor() == Color.GREY){
+                        } else if(tiles[r][c].getColor() == Color.BLACK){
                             temp = temp + "3";
                             out.write("3".getBytes());
                         }
@@ -359,7 +329,7 @@ public class View extends Application {
                 }
                 out.write("\n".getBytes());
                 out.flush();
-                choiceList.add(temp);
+                choiceList.add(tempMap);
                 maps.setItems(choiceList);
             } catch (IOException e) {
                 System.out.println("File could not be opened.");
@@ -377,7 +347,7 @@ public class View extends Application {
                         for (char number : temp.split(";")[1].toCharArray()) {
                             switch(number){
                                 case '0':
-                                tiles[a][b].setColor(Color.WHITE);
+                                tiles[a][b].setColor(Color.GREY);
                                 break;
                                 case '1':
                                 tiles[a][b].setColor(Color.RED);
@@ -386,7 +356,7 @@ public class View extends Application {
                                 tiles[a][b].setColor(Color.YELLOW);
                                 break;
                                 case '3':
-                                tiles[a][b].setColor(Color.GREY);
+                                tiles[a][b].setColor(Color.BLACK);
                                 break;
                                 default:
                                 System.out.println("no number!");
@@ -423,6 +393,10 @@ public class View extends Application {
             public Charakter getCharacter(){
                 return characterB;
             }
+        }
+
+        public Scene getScene(){
+            return scene;
         }
         
     }

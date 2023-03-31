@@ -30,6 +30,7 @@ public class StartView {
 
         charakterErstellen.setOnMouseClicked(event -> app.changeToCharakterErstellenView());
         charaktereAnsehen.setOnMouseClicked(event -> app.changeToCharaktereAnsehenView());
+        spielVorbereiten.setOnMouseClicked(event -> app.startGame());
 
         scene = new Scene(grid, 300, 300);
     }
