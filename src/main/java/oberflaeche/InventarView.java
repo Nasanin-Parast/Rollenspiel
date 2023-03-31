@@ -4,6 +4,8 @@ import gegenstand.Amulett;
 import gegenstand.Artefakt;
 import gegenstand.Gegenstand;
 import gegenstand.Ring;
+import gegenstand.artefakt.Amulett;
+import gegenstand.artefakt.Ring;
 import gegenstand.controller.GegenstaendeController;
 import gegenstand.falle.Stein;
 import gegenstand.ruestung.*;
@@ -26,19 +28,18 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import spielfigur.model.Charakter;
 
 import java.util.*;
 
 
 public class InventarView {
-    private GegenstaendeController controller;
     private GridPane grid;
     Scene scene;
     Button abbrechenButton;
     Alert alert;
     ButtonType yesButton;
     ButtonType noButton;
-    InventarController con;
     Label klasse;
     Label preis;
     Label gewicht;
@@ -46,10 +47,11 @@ public class InventarView {
     Label geschosse;
     TilePane tilepane;
     Label anwendung;
+    Charakter charakter;
 
 
-    public InventarView(GegenstaendeController controller) {
-        this.controller = controller;
+    public InventarView(Charakter charakter) {
+        this.charakter = charakter;
         erstelleFenster();
         zeigeInventar();
         createEigenschaftenanzeige();
@@ -100,16 +102,11 @@ public class InventarView {
         Text inventarText = new Text("Inventar");
         inventarText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
         grid.add(inventarText, 1, 0);
-        con = new InventarController();
-        con.create();
-        List<Gegenstand> gegenstand = con.getGegenstaende(1);
-        ObservableList<String> observableListe = FXCollections.observableList(con.getGegenstaende(1)
-                .stream().map(e -> e.getClass().getSimpleName()).toList());
         tilepane = new TilePane();
         tilepane.setPadding(new Insets(15));
         tilepane.setHgap(5);
         tilepane.setVgap(5);
-        List<Gegenstand> alle = con.getGegenstaende(1);
+        List<Gegenstand> alle = charakter.getInventar().getGegenstaende();
         for (int i = 0; i < 15; i++) {
             Image image = new Image("file:src/main/resources/image/emptySlot.png");
             if (i < alle.size()) {
@@ -149,7 +146,7 @@ public class InventarView {
             }
             ImageView imageView;
             if (i < alle.size()) {
-                imageView = new GegenstandEventhaendler(image, gegenstand.get(i));
+                imageView = new GegenstandEventhaendler(image, alle.get(i));
             } else {
                 imageView = new ImageView(image);
             }
