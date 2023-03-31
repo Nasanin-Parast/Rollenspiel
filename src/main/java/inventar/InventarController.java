@@ -1,16 +1,15 @@
 package inventar;
 
 import gegenstand.*;
-import gegenstand.falle.Stein;
 import gegenstand.ruestung.*;
 import gegenstand.waffe.*;
-import gegenstand.waffe.*;
-
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+/**
+ * @author Nasanin Parast
+ */
 
 public class InventarController {
 
