@@ -1,21 +1,11 @@
 package oberflaeche;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import spielfigur.controller.CharakterController;
+import spielfigur.model.Charakter;
 import spielfigur.repository.CharakterRepository;
-
-import java.util.Arrays;
-import java.util.List;
+import oberflaeche.Tile;
 
 public class HelloApplication extends Application {
 
@@ -56,6 +46,16 @@ public class HelloApplication extends Application {
     public void changeToStartView() {
         stage.setScene(startView.getScene());
         stage.setTitle("Willkommen Beschwörer");
+    }
+
+    public void startGame(){
+        GamemasterView view = new GamemasterView(this);
+        stage.setScene(view.getScene());
+    }
+
+    public void startPlayerUI(Tile[][] tiles, Charakter character){
+        PlayerView view = new PlayerView(tiles, character);
+        stage.setScene(view.getScene());
     }
 
 }
