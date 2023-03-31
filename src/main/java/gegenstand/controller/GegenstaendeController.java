@@ -1,14 +1,15 @@
 package gegenstand.controller;
 
-
 import gegenstand.Gegenstand;
-import gegenstand.GegenstandFactory;
 import spielfigur.model.Charakter;
-
+/**
+ * @author Nasanin Parast
+ */
 public class GegenstaendeController {
 
     Charakter charakter;
     private String[] gegenstand;
+
     public GegenstaendeController(){
         Gegenstand gegenstand = getGegenstaende();
     }
