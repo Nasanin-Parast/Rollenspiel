@@ -1,5 +1,7 @@
 package gegenstand;
 
+import gegenstand.artefakt.Artefakt;
+
 public class NormalesArtefakt extends Artefakt {
 
     public NormalesArtefakt() {

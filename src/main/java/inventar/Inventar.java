@@ -1,14 +1,13 @@
 package inventar;
 
-import gegenstand.Amulett;
 import gegenstand.Gegenstand;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Inventar {
+public class Inventar implements Serializable {
 
-    private int inventarId;
     private List<Gegenstand> gegenstaende;
 
     public Inventar() {
@@ -23,7 +22,4 @@ public class Inventar {
         return gegenstaende;
     }
 
-    public List<Gegenstand> getAmulette() {
-        return gegenstaende.stream().filter(e -> e instanceof Amulett).toList();
-    }
 }

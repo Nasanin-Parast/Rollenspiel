@@ -1,33 +1,21 @@
 package oberflaeche;
 
-import gegenstand.Amulett;
-import gegenstand.Artefakt;
 import gegenstand.Gegenstand;
-import gegenstand.Ring;
 import gegenstand.artefakt.Amulett;
 import gegenstand.artefakt.Ring;
-import gegenstand.controller.GegenstaendeController;
-import gegenstand.falle.Stein;
 import gegenstand.ruestung.*;
 import gegenstand.waffe.*;
-import inventar.Inventar;
-import inventar.InventarController;
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import spielfigur.model.Charakter;
 
 import java.util.*;
@@ -48,9 +36,11 @@ public class InventarView {
     TilePane tilepane;
     Label anwendung;
     Charakter charakter;
+    Stage stage;
 
 
-    public InventarView(Charakter charakter) {
+    public InventarView(Charakter charakter, Stage stage) {
+        this.stage = stage;
         this.charakter = charakter;
         erstelleFenster();
         zeigeInventar();
@@ -83,19 +73,7 @@ public class InventarView {
     }
 
     public void abbrechen() {
-        alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning");
-        alert.setHeaderText("Would You Like To Save Your Console Output?");
-        alert.setContentText("Please choose an option.");
-        yesButton = new ButtonType("Yes");
-        noButton = new ButtonType("No");
-        for (ButtonType bt : alert.getDialogPane().getButtonTypes()) {
-            if (bt.getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
-                Button cancelButton = (Button) alert.getDialogPane().lookupButton(bt);
-                cancelButton.fire();
-                break;
-            }
-        }
+        stage.close();
     }
 
     private void zeigeInventar() {

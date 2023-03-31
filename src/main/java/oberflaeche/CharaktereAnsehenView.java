@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import spielfigur.controller.CharakterController;
 import spielfigur.model.Charakter;
 
@@ -88,6 +89,7 @@ public class CharaktereAnsehenView {
                 setKlasseImage(cLabel.getCharakter().getClass().getSimpleName());
                 setWerte(cLabel.getCharakter());
                 loeschen.setCharakter(cLabel.getCharakter());
+                inventar.setCharakter(cLabel.getCharakter());
             });
         }
 
@@ -129,8 +131,13 @@ public class CharaktereAnsehenView {
         gesWert = new Label("-");
         grid.add(gesWert, 4, 5);
 
+        inventar = new InventarButton();
+        grid.add(inventar, 3, 6);
+
         scene = new Scene(grid, 600, 400);
     }
+
+    InventarButton inventar;
 
     private class CharakterLabel extends Label {
 
@@ -164,6 +171,25 @@ public class CharaktereAnsehenView {
         public void setCharakter(Charakter charakter) {
             this.charakter = charakter;
         }
+    }
+
+    class InventarButton extends Button {
+
+        public InventarButton() {
+            super("Inventar");
+        }
+
+        public void setCharakter(Charakter c) {
+            setOnMouseClicked(e -> {
+                Stage stage = new Stage();
+                InventarView view = new InventarView(c, stage);
+                stage.setTitle("Inventar erstellen");
+                stage.setScene(view.getScene());
+
+                stage.show();
+            });
+        }
+
     }
 
 }

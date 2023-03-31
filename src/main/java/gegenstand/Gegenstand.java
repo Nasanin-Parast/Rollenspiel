@@ -1,7 +1,9 @@
 //Autor: Melissa Maas
 package gegenstand;
 
-public abstract class Gegenstand {
+import java.io.Serializable;
+
+public abstract class Gegenstand implements Serializable {
     private final String formDerAnwendung;
     private final double preis;
     private final double gewicht;

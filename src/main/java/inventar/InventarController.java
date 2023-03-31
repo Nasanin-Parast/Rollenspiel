@@ -1,6 +1,9 @@
 package inventar;
 
 import gegenstand.*;
+import gegenstand.artefakt.Amulett;
+import gegenstand.artefakt.MagischerGegenstand;
+import gegenstand.artefakt.Ring;
 import gegenstand.falle.Stein;
 import gegenstand.ruestung.*;
 import gegenstand.waffe.*;
