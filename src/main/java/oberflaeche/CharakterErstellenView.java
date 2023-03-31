@@ -338,6 +338,7 @@ public class CharakterErstellenView {
         intAnzeige.setTextFill(Color.web("#ffd700"));
         grid.add(intAnzeige, 3, 6);
         intWert = new Label("-");
+        intWert.setTextFill(Color.web("#ffd700"));
         grid.add(intWert, 4, 6);
 
         Label strAnzeige = new Label("Stärke");
@@ -345,6 +346,7 @@ public class CharakterErstellenView {
         strAnzeige.setTextFill(Color.web("#ffd700"));
         grid.add(strAnzeige, 3, 7);
         strWert = new Label("-");
+        strWert.setTextFill(Color.web("#ffd700"));
         grid.add(strWert, 4, 7);
 
         Label konAnzeige = new Label("Konstitution");
@@ -352,6 +354,7 @@ public class CharakterErstellenView {
         konAnzeige.setTextFill(Color.web("#ffd700"));
         grid.add(konAnzeige, 3, 8);
         konWert = new Label("-");
+        konWert.setTextFill(Color.web("#ffd700"));
         grid.add(konWert, 4, 8);
 
         Label wisAnzeige = new Label("Weisheit");
@@ -359,6 +362,7 @@ public class CharakterErstellenView {
         wisAnzeige.setTextFill(Color.web("#ffd700"));
         grid.add(wisAnzeige, 3, 9);
         wisWert = new Label("-");
+        wisWert.setTextFill(Color.web("#ffd700"));
         grid.add(wisWert, 4, 9);
 
         Label gesAnzeige = new Label("Geschicklichkeit");
@@ -366,6 +370,7 @@ public class CharakterErstellenView {
         gesAnzeige.setTextFill(Color.web("#ffd700"));
         grid.add(gesAnzeige, 3, 10);
         gesWert = new Label("-");
+        gesWert.setTextFill(Color.web("#ffd700"));
         grid.add(gesWert, 4, 10);
     }
 
