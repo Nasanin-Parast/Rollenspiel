@@ -8,7 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -69,6 +70,10 @@ public class CharakterErstellenView {
 
     public CharakterErstellenView(HelloApplication app, CharakterController controller) {
         this.app = app;
+    /**
+     * @author Raphael Gardemann
+     */
+    public CharakterErstellenView(CharakterController controller) {
         this.controller = controller;
         createGrid();
         createKlassenauswahl();
@@ -81,7 +86,14 @@ public class CharakterErstellenView {
         createNamenEingabe();
 
         Button speichernButton = new Button("speichern");
+        speichernButton.setTextFill(Color.web("#ffd700"));
+        speichernButton.setStyle("-fx-background-color: #ff0000; ");
         grid.add(speichernButton, 4, 14);
+        BackgroundImage myBI= new BackgroundImage(new Image("file:src/main/resources/image/background.png"),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        grid.setBackground(new Background(myBI));
+        scene = new Scene(grid, 600, 500);
 
         speichernButton.setOnMouseClicked(event -> {
             try {
@@ -138,7 +150,8 @@ public class CharakterErstellenView {
 
     private void createKlassenauswahl() {
         Text klasseText = new Text("Klasse");
-        klasseText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        klasseText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 25));
+        klasseText.setFill(Color.GOLD);
         grid.add(klasseText, 0, 0, 2, 1);
 
         Label emptyLabel = new Label();
@@ -168,16 +181,19 @@ public class CharakterErstellenView {
         diebButton = new RadioButton("Dieb");
         diebButton.setToggleGroup(klasseGroup);
         diebButton.setPadding(new Insets(7, 0, 0, 10));
+        diebButton.setTextFill(Color.web("#ffd700"));
         grid.add(diebButton, 0, 1);
 
         kaempferButton = new RadioButton("Kämpfer");
         kaempferButton.setToggleGroup(klasseGroup);
         kaempferButton.setPadding(new Insets(0, 0, 0, 10));
+        kaempferButton.setTextFill(Color.web("#ffd700"));
         grid.add(kaempferButton, 0, 2);
 
         magierButton = new RadioButton("Magier");
         magierButton.setToggleGroup(klasseGroup);
         magierButton.setPadding(new Insets(0, 0, 20, 10));
+        magierButton.setTextFill(Color.web("#ffd700"));
         grid.add(magierButton, 0, 3);
     }
 
@@ -199,6 +215,7 @@ public class CharakterErstellenView {
     private void createEigenschaftenauswahl() {
         Text eigenschaftenText = new Text("Eigenschaften");
         eigenschaftenText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        eigenschaftenText.setFill(Color.GOLD);
         grid.add(eigenschaftenText, 0, 4, 2, 1);
 
         int[] werte = controller.getVerfuegbareWerte();
@@ -207,30 +224,35 @@ public class CharakterErstellenView {
 
         Label intLabel = new Label("Intelligenz:");
         intLabel.setPadding(new Insets(5, 10, 5, 10));
+        intLabel.setTextFill(Color.web("#ffd700"));
         intBox = new ChoiceBox(obListe);
         grid.add(intLabel, 0, 5);
         grid.add(intBox, 1, 5);
 
         Label strLabel = new Label("Stärke:");
         strLabel.setPadding(new Insets(5, 10, 5, 10));
+        strLabel.setTextFill(Color.web("#ffd700"));
         strBox = new ChoiceBox(obListe);
         grid.add(strLabel, 0, 6);
         grid.add(strBox, 1, 6);
 
         Label konLabel = new Label("Konstitution:");
         konLabel.setPadding(new Insets(5, 10, 5, 10));
+        konLabel.setTextFill(Color.web("#ffd700"));
         konBox = new ChoiceBox(obListe);
         grid.add(konLabel, 0, 7);
         grid.add(konBox, 1, 7);
 
         Label wisLabel = new Label("Weisheit:");
         wisLabel.setPadding(new Insets(5, 10, 5, 10));
+        wisLabel.setTextFill(Color.web("#ffd700"));
         wisBox = new ChoiceBox(obListe);
         grid.add(wisLabel, 0, 8);
         grid.add(wisBox, 1, 8);
 
         Label gesLabel = new Label("Geschicklichkeit:");
         gesLabel.setPadding(new Insets(5, 10, 5, 10));
+        gesLabel.setTextFill(Color.web("#ffd700"));
         gesBox = new ChoiceBox(obListe);
         grid.add(gesLabel, 0, 9);
         grid.add(gesBox, 1, 9);
@@ -262,6 +284,7 @@ public class CharakterErstellenView {
     private void createRassenauswahl() {
         Text rasseText = new Text("Rasse");
         rasseText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        rasseText.setFill(Color.GOLD);
         grid.add(rasseText, 0, 10, 2, 1);
 
         rasseGroup = new ToggleGroup();
@@ -269,21 +292,25 @@ public class CharakterErstellenView {
         menschButton = new RadioButton("Mensch");
         menschButton.setToggleGroup(rasseGroup);
         menschButton.setPadding(new Insets(7, 0, 0, 10));
+        menschButton.setTextFill(Color.web("#ffd700"));
         grid.add(menschButton, 0, 11);
 
         zwergButton = new RadioButton("Zwerg");
         zwergButton.setToggleGroup(rasseGroup);
         zwergButton.setPadding(new Insets(0, 0, 0, 10));
+        zwergButton.setTextFill(Color.web("#ffd700"));
         grid.add(zwergButton, 0, 12);
 
         elfButton = new RadioButton("Elf");
         elfButton.setToggleGroup(rasseGroup);
         elfButton.setPadding(new Insets(0, 0, 0, 10));
+        elfButton.setTextFill(Color.web("#ffd700"));
         grid.add(elfButton, 0, 13);
 
         hobbitButton = new RadioButton("Hobbit");
         hobbitButton.setToggleGroup(rasseGroup);
         hobbitButton.setPadding(new Insets(0, 0, 0, 10));
+        hobbitButton.setTextFill(Color.web("#ffd700"));
         grid.add(hobbitButton, 0, 14);
     }
 
@@ -313,30 +340,35 @@ public class CharakterErstellenView {
     private void createEigenschaftenanzeige() {
         Label intAnzeige = new Label("Intelligenz");
         intAnzeige.setPadding(new Insets(0, 50, 0, 40));
+        intAnzeige.setTextFill(Color.web("#ffd700"));
         grid.add(intAnzeige, 3, 6);
         intWert = new Label("-");
         grid.add(intWert, 4, 6);
 
         Label strAnzeige = new Label("Stärke");
         strAnzeige.setPadding(new Insets(0, 50, 0, 40));
+        strAnzeige.setTextFill(Color.web("#ffd700"));
         grid.add(strAnzeige, 3, 7);
         strWert = new Label("-");
         grid.add(strWert, 4, 7);
 
         Label konAnzeige = new Label("Konstitution");
         konAnzeige.setPadding(new Insets(0, 50, 0, 40));
+        konAnzeige.setTextFill(Color.web("#ffd700"));
         grid.add(konAnzeige, 3, 8);
         konWert = new Label("-");
         grid.add(konWert, 4, 8);
 
         Label wisAnzeige = new Label("Weisheit");
         wisAnzeige.setPadding(new Insets(0, 50, 0, 40));
+        wisAnzeige.setTextFill(Color.web("#ffd700"));
         grid.add(wisAnzeige, 3, 9);
         wisWert = new Label("-");
         grid.add(wisWert, 4, 9);
 
         Label gesAnzeige = new Label("Geschicklichkeit");
         gesAnzeige.setPadding(new Insets(0, 50, 0, 40));
+        gesAnzeige.setTextFill(Color.web("#ffd700"));
         grid.add(gesAnzeige, 3, 10);
         gesWert = new Label("-");
         grid.add(gesWert, 4, 10);

@@ -1,10 +1,16 @@
 package oberflaeche;
 
+import gegenstand.Amulett;
 import gegenstand.Gegenstand;
+import gegenstand.Ring;
+import gegenstand.controller.GegenstaendeController;
 import gegenstand.artefakt.Amulett;
 import gegenstand.artefakt.Ring;
 import gegenstand.ruestung.*;
 import gegenstand.waffe.*;
+import inventar.InventarController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,7 +25,9 @@ import javafx.stage.Stage;
 import spielfigur.model.Charakter;
 
 import java.util.*;
-
+/**
+ * @author Nasanin Parast
+ */
 
 public class InventarView {
     private GridPane grid;
@@ -31,8 +39,6 @@ public class InventarView {
     Label klasse;
     Label preis;
     Label gewicht;
-    Label staerke;
-    Label geschosse;
     TilePane tilepane;
     Label anwendung;
     Charakter charakter;
@@ -45,14 +51,12 @@ public class InventarView {
         erstelleFenster();
         zeigeInventar();
         createEigenschaftenanzeige();
-
-        abbrechenButton = new Button("Abbrechen");
-        abbrechenButton.setId("abbrechen");
-        grid.add(abbrechenButton, 20, 10);
-        //grid.setBackground();
-        grid.setStyle("-fx-background-color: palegreen;");
-        abbrechenButton.setMaxSize(500,500);
+        abbrechen();
         abbrechenButton.setOnMouseClicked(e -> abbrechen());
+        BackgroundImage myBI= new BackgroundImage(new Image("file:src/main/resources/image/background.png"),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        grid.setBackground(new Background(myBI));
         scene = new Scene(grid, 800, 700);
     }
 
@@ -73,12 +77,31 @@ public class InventarView {
     }
 
     public void abbrechen() {
-        stage.close();
+        abbrechenButton = new Button("Abbrechen");
+        abbrechenButton.setTextFill(Color.web("#ffd700"));
+        abbrechenButton.setStyle("-fx-background-color: #ff0000; ");
+        abbrechenButton.setId("abbrechen");
+        grid.add(abbrechenButton, 20, 10);
+        abbrechenButton.setMaxSize(500,500);
+        alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning");
+        alert.setHeaderText("Would You Like To Save Your Console Output?");
+        alert.setContentText("Please choose an option.");
+        yesButton = new ButtonType("Yes");
+        noButton = new ButtonType("No");
+        for (ButtonType bt : alert.getDialogPane().getButtonTypes()) {
+            if (bt.getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+                Button cancelButton = (Button) alert.getDialogPane().lookupButton(bt);
+                cancelButton.fire();
+                break;
+            }
+        }
     }
 
     private void zeigeInventar() {
         Text inventarText = new Text("Inventar");
         inventarText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
+        inventarText.setFill(Color.GOLD);
         grid.add(inventarText, 1, 0);
         tilepane = new TilePane();
         tilepane.setPadding(new Insets(15));
@@ -133,56 +156,66 @@ public class InventarView {
         grid.add(tilepane, 0, 20, 20, 1);
     }
 
-
     private void createEigenschaftenanzeige() {
-        Label aklasse = new Label("Rüstungsklasse");
+        Label aklasse = new Label("Rüstungsklasse:  ");
         aklasse.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
+        aklasse.setTextFill(Color.web("#ffd700"));
         aklasse.setPadding(new Insets(0));
         grid.add(aklasse, 3, 2);
         klasse = new Label("-");
         klasse.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
-        klasse.setPadding(new Insets(0, 100, 0, 0));
-        grid.add(klasse, 5, 2);
+        klasse.setTextFill(Color.web("#ffd700"));
+        grid.add(klasse, 8, 2);
 
-        Label aPreis = new Label("Preis");
+        Label aPreis = new Label("Preis: ");
         aPreis.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
+        aPreis.setTextFill(Color.web("#ffd700"));
         aPreis.setPadding(new Insets(0));
         grid.add(aPreis, 3, 3);
         preis = new Label("-");
         preis.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
-        grid.add(preis, 5, 3);
+        preis.setTextFill(Color.web("#ffd700"));
+        grid.add(preis, 8, 3);
 
-        Label aGewicht = new Label("Gewicht in Pfund");
+        Label aGewicht = new Label("Gewicht in Pfund:   ");
         aGewicht.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
+        aGewicht.setTextFill(Color.web("#ffd700"));
         aGewicht.setPadding(new Insets(0));
         grid.add(aGewicht, 3, 4);
         gewicht = new Label("-");
         gewicht.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
-        grid.add(gewicht, 5, 4);
+        gewicht.setTextFill(Color.web("#ffd700"));
+        grid.add(gewicht, 8, 4);
+// Für weitere Eigenschaften
+//        Label aStaerke = new Label("Stärke");
+//        aStaerke.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
+//        aStaerke.setTextFill(Color.web("#ffd700"));
+//        aStaerke.setPadding(new Insets(0));
+//        grid.add(aStaerke, 3, 5);
+//        staerke = new Label("-");
+//        staerke.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
+//        staerke.setTextFill(Color.web("#ffd700"));
+//        grid.add(staerke, 7, 5);
 
-        Label aStaerke = new Label("Stärke");
-        aStaerke.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
-        aStaerke.setPadding(new Insets(0));
-        grid.add(aStaerke, 3, 5);
-        staerke = new Label("-");
-        staerke.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
-        grid.add(staerke, 5, 5);
+//        Label anzahlGeschosse = new Label("Anzahl Geschosse");
+//        anzahlGeschosse.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
+//        anzahlGeschosse.setTextFill(Color.web("#ffd700"));
+//        anzahlGeschosse.setPadding(new Insets(0));
+//        grid.add(anzahlGeschosse, 3, 6);
+//        geschosse = new Label("-");
+//        geschosse.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
+//        geschosse.setTextFill(Color.web("#ffd700"));
+//        grid.add(geschosse, 7, 6);
 
-        Label anzahlGeschosse = new Label("Anzahl Geschosse");
-        anzahlGeschosse.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
-        anzahlGeschosse.setPadding(new Insets(0));
-        grid.add(anzahlGeschosse, 3, 6);
-        geschosse = new Label("-");
-        geschosse.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
-        grid.add(geschosse, 5, 6);
-
-        Label aAnwendung = new Label("Anwendung");
+        Label aAnwendung = new Label("Anwendung: ");
         aAnwendung.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
+        aAnwendung.setTextFill(Color.web("#ffd700"));
         aAnwendung.setPadding(new Insets(0));
-        grid.add(aAnwendung, 3, 7);
+        grid.add(aAnwendung, 3, 5);
         anwendung = new Label("-");
         anwendung.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
-        grid.add(anwendung, 5, 7);
+        anwendung.setTextFill(Color.web("#ffd700"));
+        grid.add(anwendung, 8, 5);
     }
 
     private class GegenstandEventhaendler extends ImageView {
