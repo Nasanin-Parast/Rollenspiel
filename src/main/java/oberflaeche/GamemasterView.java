@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -175,11 +176,17 @@ public class GamemasterView {
 
             weiter = new Button("Weiter");
             weiter.setId("weiter");
+            
             weiter.setOnMouseClicked(event -> {
+                Charakter selectedCharakter = null;
+                ObservableList<Node> charakters = characters.getChildren();
                 for(int i = 0; i < character.size(); i++){
-                    if(character.get(i).get)
+                    CharacterButton temp = (CharacterButton)charakters.get(i);
+                    if(temp.getId() == "Selected"){
+                        selectedCharakter = temp.getCharacter();
+                    }
                 }
-                app.startPlayerUI(tiles, selectedCharacter);
+                app.startPlayerUI(tiles, selectedCharakter);
             });
 
             // root structure
