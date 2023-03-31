@@ -2,7 +2,9 @@ package spielfigur.builder;
 
 import spielfigur.exception.MissingAttributeException;
 import spielfigur.model.Charakter;
-
+/**
+ * @author Nasanin Parast, Raphael Gardemann
+ */
 public abstract class CharakterBuilder {
     protected String name;
     protected int intelligenz;

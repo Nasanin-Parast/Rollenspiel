@@ -1,5 +1,7 @@
 package gegenstand;
-
+/**
+ * @author Melissa Maas, Nasanin Parast
+ */
 public class Amulett extends MagischerGegenstand {
 
     public Amulett() {

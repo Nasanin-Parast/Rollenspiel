@@ -1,5 +1,7 @@
 package gegenstand.falle;
-
+/**
+ * @author Melissa Maas, Nasanin Parast
+ */
 public class Stein extends Falle {
 
 

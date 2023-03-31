@@ -19,7 +19,9 @@ import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import oberflaeche.controller.ControllerImpl;
 import oberflaeche.model.Knoten;
-
+/**
+ * @author NasaninParast,Raphael Gardemann, Stefan Boeven
+ */
 public class View extends Application {
     private ControllerImpl controller = new ControllerImpl();
     private HBox buttons = new HBox();

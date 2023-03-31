@@ -1,7 +1,9 @@
 package gegenstand.ruestung;
 
 import gegenstand.ruestung.Ruestung;
-
+/**
+ * @author Melissa Maas, Nasanin Parast
+ */
 public class Schild extends Ruestung {
 
 

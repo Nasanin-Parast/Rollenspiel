@@ -1,5 +1,7 @@
 package gegenstand.waffe;
-
+/**
+ * @author Melissa Maas, Nasanin Parast
+ */
 public class BogenMitPfeilen extends Waffe {
 
     private int anzahlGeschosse;

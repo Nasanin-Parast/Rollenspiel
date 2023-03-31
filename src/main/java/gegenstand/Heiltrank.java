@@ -1,7 +1,7 @@
 package gegenstand;
-
-import java.util.Random;
-
+/**
+ * @author Melissa Maas, Nasanin Parast
+ */
 public class Heiltrank extends Trank {
 
     public Heiltrank() {

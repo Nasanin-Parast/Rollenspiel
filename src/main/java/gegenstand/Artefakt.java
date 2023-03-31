@@ -1,7 +1,7 @@
 package gegenstand;
-
-import gegenstand.Gegenstand;
-
+/**
+ * @author Melissa Maas, Nasanin Parast
+ */
 public abstract class Artefakt extends Gegenstand {
 
     protected Artefakt(String formDerAnwendung, double preis, double gewicht) {

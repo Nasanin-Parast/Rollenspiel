@@ -1,5 +1,7 @@
 package spielfigur.builder;
-
+/**
+ * @author Raphael Gardemann
+ */
 public class SpielfigurFactory {
 
     public static CharakterBuilder createCharakter(String typ){

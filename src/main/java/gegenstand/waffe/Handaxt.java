@@ -1,5 +1,7 @@
 package gegenstand.waffe;
-
+/**
+ * @author Melissa Maas, Nasanin Parast
+ */
 public class Handaxt extends Waffe {
 
     public Handaxt() {

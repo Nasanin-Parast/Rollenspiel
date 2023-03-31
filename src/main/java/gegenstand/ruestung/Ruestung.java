@@ -1,7 +1,9 @@
 package gegenstand.ruestung;
 
 import gegenstand.Gegenstand;
-
+/**
+ * @author Melissa Maas, Nasanin Parast
+ */
 public abstract class Ruestung extends Gegenstand {
 
     private final int ruestungsklasse;

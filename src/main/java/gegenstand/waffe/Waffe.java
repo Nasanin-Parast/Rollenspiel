@@ -1,7 +1,9 @@
 package gegenstand.waffe;
 
 import gegenstand.Gegenstand;
-
+/**
+ * @author Melissa Maas, Nasanin Parast
+ */
 public abstract class Waffe extends Gegenstand {
 
     private final int schadenwuerfel;

@@ -1,5 +1,7 @@
 package spielfigur.builder;
-
+/**
+ * @author Raphael Gardemann
+ */
 public enum Rasse {
     ZWERG(0, 2, 2, 1, 0),
     MENSCH(1, 1, 1, 1, 1),

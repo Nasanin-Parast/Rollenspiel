@@ -6,7 +6,9 @@ import spielfigur.builder.SpielfigurFactory;
 import spielfigur.model.Charakter;
 import spielfigur.builder.Rasse;
 import spielfigur.util.RandomUtils;
-
+/**
+ * @author Raphael Gardemann
+ */
 public class CharakterController {
 
     private int[] verfuegbareWerte;

@@ -1,5 +1,7 @@
 package gegenstand.waffe;
-
+/**
+ * @author Melissa Maas, Nasanin Parast
+ */
 public class Schwert extends Waffe {
 
     public Schwert() {

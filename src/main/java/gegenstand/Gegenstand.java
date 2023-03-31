@@ -1,5 +1,7 @@
 package gegenstand;
-
+/**
+ * @author Melissa Maas, Nasanin Parast
+ */
 public abstract class Gegenstand {
     private final String formDerAnwendung;
     private final double preis;

@@ -2,7 +2,9 @@ package gegenstand;
 
 import gegenstand.ruestung.*;
 import gegenstand.waffe.*;
-
+/**
+ * @author Melissa Maas, Nasanin Parast
+ */
 public class GegenstandFactory {
 
     public static Gegenstand newGegenstand(String gegenstand){
