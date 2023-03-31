@@ -5,14 +5,24 @@ import spielfigur.builder.NullBuilder;
 import spielfigur.builder.SpielfigurFactory;
 import spielfigur.model.Charakter;
 import spielfigur.builder.Rasse;
+import spielfigur.repository.CharakterRepository;
 import spielfigur.util.RandomUtils;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.List;
+
 public class CharakterController {
+
+    private CharakterRepository charakterRepository;
 
     private int[] verfuegbareWerte;
     private CharakterBuilder charBuilder;
 
-    public CharakterController() {
+    public CharakterController(CharakterRepository charakterRepository) {
+        this.charakterRepository = charakterRepository;
         verfuegbareWerte = RandomUtils.getCharakterWerte();
         charBuilder = new NullBuilder();
     }
@@ -53,10 +63,18 @@ public class CharakterController {
         return verfuegbareWerte;
     }
 
-    public Charakter getCharakter() {
+    public void createCharakter() {
         Charakter charakter = charBuilder.checkWerte(verfuegbareWerte).build();
+        charakterRepository.save(charakter);
         verfuegbareWerte = RandomUtils.getCharakterWerte();
-        return charakter;
+    }
+
+    public List<Charakter> getAlleCharakter() {
+        return charakterRepository.getAll();
+    }
+
+    public void deleteCharakter(Charakter charakter) {
+        charakterRepository.delete(charakter);
     }
 
 }

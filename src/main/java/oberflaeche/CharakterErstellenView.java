@@ -12,8 +12,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import spielfigur.builder.Rasse;
 import spielfigur.controller.CharakterController;
+import spielfigur.model.Charakter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -59,9 +61,14 @@ public class CharakterErstellenView {
     private Label wisWert;
     private Label gesWert;
 
+    private TextField nameTextField;
+
     private Scene scene;
 
-    public CharakterErstellenView(CharakterController controller) {
+    private HelloApplication app;
+
+    public CharakterErstellenView(HelloApplication app, CharakterController controller) {
+        this.app = app;
         this.controller = controller;
         createGrid();
         createKlassenauswahl();
@@ -71,11 +78,50 @@ public class CharakterErstellenView {
         createRassenauswahl();
         addRassenauswahlEventHandler();
         createEigenschaftenanzeige();
+        createNamenEingabe();
 
         Button speichernButton = new Button("speichern");
         grid.add(speichernButton, 4, 14);
 
-        scene = new Scene(grid, 600, 500);
+        speichernButton.setOnMouseClicked(event -> {
+            try {
+                controller.setName(nameTextField.getText());
+                controller.createCharakter();
+                Stage stage = new Stage();
+                GridPane gridPane = new GridPane();
+                Label okLabel = new Label("Speichern erfolgreich");
+                gridPane.add(okLabel, 0, 0);
+                Button okButton = new Button("OK");
+                gridPane.add(okButton, 0, 1);
+                Scene scene = new Scene(gridPane, 300, 100);
+                stage.setScene(scene);
+                stage.setTitle("Supi dupi");
+                stage.show();
+                okButton.setOnMouseClicked(ev -> {
+                    stage.close();
+                    app.changeToStartView();
+                });
+            } catch (Exception e) {
+                Stage stage = new Stage();
+                GridPane gridPane = new GridPane();
+                Label fehlerLabel = new Label(e.getMessage());
+                gridPane.add(fehlerLabel, 0, 0);
+                Button okButton = new Button("OK");
+                gridPane.add(okButton, 0, 1);
+                Scene scene = new Scene(gridPane, 300, 100);
+                stage.setScene(scene);
+                stage.setTitle("Fehler");
+                stage.show();
+
+                okButton.setOnMouseClicked(ev -> stage.close());
+            }
+        });
+
+        Button backButton = new Button("zurück");
+        grid.add(backButton, 3, 14);
+        backButton.setOnMouseClicked(e -> app.changeToStartView());
+
+        scene = new Scene(grid, 700, 500);
     }
 
     public Scene getScene() {
@@ -294,6 +340,14 @@ public class CharakterErstellenView {
         grid.add(gesAnzeige, 3, 10);
         gesWert = new Label("-");
         grid.add(gesWert, 4, 10);
+    }
+
+    public void createNamenEingabe() {
+        Label nameLabel = new Label("Name");
+        nameLabel.setPadding(new Insets(0, 50, 0, 40));
+        grid.add(nameLabel, 3, 12);
+        nameTextField = new TextField();
+        grid.add(nameTextField, 4, 12);
     }
 
     private void updateIntelligenz() {
