@@ -5,42 +5,20 @@ import gegenstand.Gegenstand;
 
 public abstract class Waffe extends Gegenstand {
 
-    private int schadenwuerfel;
-    private char schadenUndAngriffModifizierer;
-    private double preis;
-    private int gewichtInPfund;
-    private int einsetzbarBisSpielfeld;
+    private final int schadenwuerfel;
+    private final char schadenUndAngriffModifizierer;
 
-    public Waffe(char schadenUndAngriffModifizierer, double preis, int gewichtInPfund, int einsetzbarBisSpielfeld){
-
+    protected Waffe(char modifier, int schaden, double preis, double gewicht) {
+        super("use", preis, gewicht);
+        this.schadenwuerfel = schaden;
+        this.schadenUndAngriffModifizierer = modifier;
     }
 
-    public int getSchadenwuerfel() {return schadenwuerfel;}
-
-    public char getSchadenUndAngriffModifizierer() {return schadenUndAngriffModifizierer;}
-
-    public double getPreis() {return preis;}
-
-    public int getGewichtInPfund() {return gewichtInPfund;}
-
-    public int getEinsetzbarBisSpielfeld() {return einsetzbarBisSpielfeld;}
-
-    public void setSchadenwuerfel(int schadenwuerfel) {this.schadenwuerfel = schadenwuerfel;}
-
-    public void setSchadenUndAngriffModifizierer(char schadenUndAngriffModifizierer) {
-        this.schadenUndAngriffModifizierer = schadenUndAngriffModifizierer;
+    public int getSchadenwuerfel() {
+        return schadenwuerfel;
     }
 
-    public void setPreis(double preis) {this.preis = preis;}
-
-    public void setGewichtInPfund(int gewichtInPfund) {this.gewichtInPfund = gewichtInPfund;}
-
-    public void setEinsetzbarBisSpielfeld(int einsetzbarBisSpielfeld) {
-        this.einsetzbarBisSpielfeld = einsetzbarBisSpielfeld;
-    }
-
-    @Override
-    public String interagiereMitGegenstand() {
-        return "Waffe: " + this.getClass().getSimpleName();
+    public char getSchadenUndAngriffModifizierer() {
+        return schadenUndAngriffModifizierer;
     }
 }

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Tag("UnitTest")
-public class SpielfigurFactoryTest {
+class SpielfigurFactoryTest {
 
     private static final String DIEB = "Dieb";
     private static final String MAGIER = "Magier";

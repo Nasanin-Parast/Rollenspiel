@@ -5,8 +5,7 @@ import gegenstand.Gegenstand;
 
 public abstract class Falle extends Gegenstand {
 
-    @Override
-    public String interagiereMitGegenstand() {
-        return "Falle: " + this.getClass().getSimpleName();
+    protected Falle(double preis, double gewicht) {
+        super("use", preis, gewicht);
     }
 }

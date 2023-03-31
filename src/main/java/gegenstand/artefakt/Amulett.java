@@ -3,15 +3,8 @@ package gegenstand.artefakt;
 
 public class Amulett extends MagischerGegenstand {
 
-    public Amulett(String fromDerAnwendung) {
-        super(fromDerAnwendung);
+    public Amulett() {
+        super("use",20., 0.1);
     }
-
-    @Override
-    //+ Verteidigungsbonus 2
-    public int Auswirkung(int ruestungsklasse) {
-        return ruestungsklasse + 2;
-    }
-
 }
 

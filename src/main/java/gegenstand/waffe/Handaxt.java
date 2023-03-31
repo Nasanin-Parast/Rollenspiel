@@ -3,7 +3,7 @@ package gegenstand.waffe;
 
 public class Handaxt extends Waffe {
 
-    public Handaxt(char schadenUndAngriffModifizierer, double preis, int gewichtInPfund, int einsetzbarBisSpielfeld) {
-        super(schadenUndAngriffModifizierer, preis, gewichtInPfund, einsetzbarBisSpielfeld);
+    public Handaxt() {
+        super('-', 6, 5., 2.);
     }
 }

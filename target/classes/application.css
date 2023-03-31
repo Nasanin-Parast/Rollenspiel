@@ -1,0 +1,119 @@
+.toolButton{
+	-fx-text-fill: black;
+	-fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+	-fx-font-size: 29;
+	-fx-font-style: normal;
+	-fx-font-weight: bold;
+	-fx-font-family: sans-serif;
+	-fx-background-radius: 30;
+}
+
+.runnableToolButton{
+	-fx-background-color: linear-gradient(#f9f99a, #f5f261);
+	-fx-effect: none;
+	-fx-font-size: 29;
+	-fx-font-style: normal;
+	-fx-font-weight: bold;
+	-fx-font-family: sans-serif;
+}
+
+.selectedButton{
+	-fx-effect: dropshadow( one-pass-box , black , 40 , 0.0 , 2 , 0 );
+}
+#wandPlatzieren{
+	-fx-background-color:linear-gradient(#bababa, #7d7d7d);
+	-fx-effect: none;
+	-fx-font-size: 29;
+	-fx-font-style: normal;
+	-fx-font-weight: bold;
+	-fx-font-family: sans-serif;
+}
+
+#wandLoeschen{
+	-fx-background-color:linear-gradient(#f5f5f5, #cfcfcf);
+	-fx-effect: none;
+	-fx-font-size: 29;
+	-fx-font-style: normal;
+	-fx-font-weight: bold;
+	-fx-font-family: sans-serif;
+}
+
+#placeStarting{
+	-fx-background-color:linear-gradient(#bcf9a4,#60f122 );
+	-fx-effect: none;
+	-fx-font-size: 29;
+	-fx-font-style: normal;
+	-fx-font-weight: bold;
+	-fx-font-family: sans-serif;
+
+}
+
+#placeEnding{
+	-fx-background-color: linear-gradient(#f77e7e, #f12222);
+	-fx-effect: none;
+	-fx-font-size: 29;
+	-fx-font-style: normal;
+	-fx-font-weight: bold;
+	-fx-font-family: sans-serif;
+}
+
+#deleteRaster{
+	-fx-focus-color: black;
+	-fx-text-fill: black;
+	-fx-effect: none;
+	-fx-font-size: 29;
+	-fx-font-style: normal;
+	-fx-font-weight: bold;
+	-fx-font-family: sans-serif;
+}
+
+#wandPlatzierenSelected{
+	-fx-background-color:linear-gradient(#bababa, #7d7d7d);
+	-fx-effect: none;
+	-fx-font-size: 29;
+	-fx-font-style: normal;
+	-fx-font-weight: bold;
+	-fx-font-family: sans-serif;
+	-fx-border-color: black;
+}
+
+#wandLoeschenSelected{
+	-fx-background-color:linear-gradient(#f5f5f5, #cfcfcf);
+	-fx-effect: none;
+	-fx-font-size: 29;
+	-fx-font-style: normal;
+	-fx-font-weight: bold;
+	-fx-font-family: sans-serif;
+	-fx-border-color: black;
+}
+
+#placeStartingSelected{
+	-fx-background-color:linear-gradient(#bcf9a4,#60f122 );
+	-fx-effect: none;
+	-fx-font-size: 29;
+	-fx-font-style: normal;
+	-fx-font-weight: bold;
+	-fx-font-family: sans-serif;
+	-fx-border-color: black;
+}
+
+#placeEndingSelected{
+	-fx-background-color: linear-gradient(#f77e7e, #f12222);
+	-fx-effect: none;
+	-fx-font-size: 29;
+	-fx-font-style: normal;
+	-fx-font-weight: bold;
+	-fx-font-family: sans-serif;
+	-fx-border-color: black;
+}
+
+#deleteRasterSelected{
+	-fx-focus-color: black;
+	-fx-text-fill: black;
+	-fx-effect: none;
+	-fx-font-size: 29;
+	-fx-font-style: normal;
+	-fx-font-weight: bold;
+	-fx-font-family: sans-serif;
+	-fx-border-color: black;
+}

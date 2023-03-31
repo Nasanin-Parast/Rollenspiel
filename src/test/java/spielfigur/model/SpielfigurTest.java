@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Tag("UnitTest")
-public class SpielfigurTest {
+class SpielfigurTest {
     private static final String NAME = "Bob";
     private static final int INTELLIGENZ = 5;
     private static final int STAERKE = 4;

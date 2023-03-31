@@ -12,7 +12,7 @@ public abstract class CharakterBuilder {
     protected int geschicklichkeit;
     protected Rasse rasse;
 
-    public CharakterBuilder() {
+    protected CharakterBuilder() {
     }
 
     public CharakterBuilder withName(String name) {

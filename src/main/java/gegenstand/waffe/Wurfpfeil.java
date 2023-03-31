@@ -5,12 +5,16 @@ public class Wurfpfeil extends Waffe {
 
     private int anzahlGeschosse;
 
-    public Wurfpfeil(char schadenUndAngriffModifizierer, double preis, int gewichtInPfund, int einsetzbarBisSpielfeld, int anzahlGeschosse) {
-        super(schadenUndAngriffModifizierer, preis, gewichtInPfund, einsetzbarBisSpielfeld);
-        setAnzahlGeschosse(anzahlGeschosse);
+    public Wurfpfeil() {
+        super('D', 4, .1, .25);
+        setAnzahlGeschosse(20);
     }
 
-    public int getAnzahlGeschosse() {return anzahlGeschosse;}
+    public int getAnzahlGeschosse() {
+        return anzahlGeschosse;
+    }
 
-    public void setAnzahlGeschosse(int anzahlGeschosse) {this.anzahlGeschosse = anzahlGeschosse;}
+    public void setAnzahlGeschosse(int anzahlGeschosse) {
+        this.anzahlGeschosse = anzahlGeschosse;
+    }
 }
