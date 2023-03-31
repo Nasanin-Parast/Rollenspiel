@@ -1,6 +1,8 @@
 package spielfigur.model;
 
-public abstract class Spielfigur {
+import java.io.Serializable;
+
+public abstract class Spielfigur implements Serializable {
     private static final int MODIFICATIONVALUE = 10;
     private final int BASIS_LP;
     private String name;
@@ -12,7 +14,7 @@ public abstract class Spielfigur {
     private int weisheit;
     private int geschicklichkeit;
 
-    public Spielfigur(String name, int intelligenz, int staerke, int konstitution, int weisheit, int geschicklichkeit, int basisLP) {
+    protected Spielfigur(String name, int intelligenz, int staerke, int konstitution, int weisheit, int geschicklichkeit, int basisLP) {
         this.name=name;
         checkCharakterEigenschaft(intelligenz);
         this.intelligenz = intelligenz;

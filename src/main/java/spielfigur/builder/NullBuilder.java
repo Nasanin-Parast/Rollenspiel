@@ -3,7 +3,7 @@ package spielfigur.builder;
 import spielfigur.exception.MissingAttributeException;
 import spielfigur.model.Charakter;
 
-public class NullBuilder extends CharakterBuilder {
+public class NullBuilder extends CharakterBuilder{
 
     @Override
     protected Charakter createCharakter() {

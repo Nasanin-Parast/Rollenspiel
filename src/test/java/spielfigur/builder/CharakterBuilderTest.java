@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("UnitTest")
-public class CharakterBuilderTest {
+class CharakterBuilderTest {
 
     private static final String NAME = "Dumbo";
     private static final int INTELLIGENZ = 9;
@@ -19,7 +19,7 @@ public class CharakterBuilderTest {
     private static final int WEISHEIT = 4;
     private static final int GESCHICKLICHKEIT = 5;
     private static final int BASIS_LP = 10;
-    private static final Rasse rasse = Rasse.Mensch;
+    private static final Rasse rasse = Rasse.MENSCH;
 
     @Test
     void createCharacter() {

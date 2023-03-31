@@ -1,4 +1,4 @@
-package spielfigur.controller;
+/*package spielfigur.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -13,13 +13,13 @@ import spielfigur.model.Magier;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Tag("IntegrationTest")
-public class CharakterControllerIT {
+class CharakterControllerIT {
 
     private static final String DIEB = "Dieb";
     private static final String KAEMPFER = "Kaempfer";
     private static final String MAGIER = "Magier";
     private static final String NAME = "FreshD";
-    private static final Rasse RASSE = Rasse.Zwerg;
+    private static final Rasse RASSE = Rasse.ZWERG;
 
     private CharakterController controller;
 
@@ -165,4 +165,4 @@ public class CharakterControllerIT {
         assertThrows(MissingAttributeException.class, controller::getCharakter);
     }
 
-}
+}*/

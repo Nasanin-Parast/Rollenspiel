@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 @Tag("UnitTest")
-public class KaempferBuilderTest {
+class KaempferBuilderTest {
 
     private static final String NAME = "Kämpfer";
     private static final int INTELLIGENZ = 7;
@@ -14,7 +14,7 @@ public class KaempferBuilderTest {
     private static final int KONSTITUTION = 9;
     private static final int WEISHEIT = 5;
     private static final int GESCHICKLICHKEIT = 5;
-    private static final Rasse RASSE = Rasse.Hobbit;
+    private static final Rasse RASSE = Rasse.HOBBIT;
 
     @Test
     void createKaempferWithBuilder() {
